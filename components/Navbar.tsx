@@ -11,7 +11,7 @@ export default function Navbar() {
 						P
 					</div>
 					<div>
-						<h3 className="text-sm font-semibold">Pizza</h3>
+						<h3 className="text-sm font-semibold">Big D</h3>
 						<p className="text-xs text-muted-foreground">
 							Showcase
 						</p>

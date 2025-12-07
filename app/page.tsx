@@ -15,11 +15,11 @@ export default function Home() {
 			<Navbar />
 			<main className="mx-auto w-full">
 				<Hero />
-				<SectionMenu />
-				<SectionSpecials />
-				<SectionGallery />
-				<SectionAbout />
-				<SectionContact />
+				{/* <SectionMenu /> */}
+				{/* <SectionSpecials /> */}
+				{/* <SectionGallery /> */}
+				{/* <SectionAbout /> */}
+				{/* <SectionContact /> */}
 			</main>
 			<Footer />
 		</div>
