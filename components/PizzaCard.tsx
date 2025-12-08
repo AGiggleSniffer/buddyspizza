@@ -1,6 +1,5 @@
 import Image from "next/image";
-import React from "react";
-import Button from "./Button";
+import Button from "@/components/Button";
 
 type Props = {
 	name: string;
@@ -18,7 +17,7 @@ export default function PizzaCard({
 	return (
 		<div className="flex w-full max-w-md flex-col gap-4 rounded-lg border border-border p-4">
 			<div className="flex items-center gap-4">
-				<div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-muted">
+				<div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-muted">
 					<Image
 						src={image}
 						alt={name}
