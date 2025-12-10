@@ -2,7 +2,7 @@ export default function SectionSpecials() {
 	return (
 		<section
 			id="specials"
-			className="min-h-screen flex items-center bg-background"
+			className="h-screen flex items-center bg-secondary"
 		>
 			<div className="mx-auto max-w-4xl px-6 py-12">
 				<h2 className="text-2xl font-semibold">

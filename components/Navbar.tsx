@@ -50,7 +50,7 @@ export default function Navbar() {
 
 	return (
 		<NavigationMenu
-			className={`min-w-full justify-end border-b shadow-md dark:shadow-neutral-900 transition-transform duration-300 ${
+			className={`min-w-full justify-end shadow-lg dark:shadow-sm dark:shadow-neutral-900 transition-transform duration-300 ${
 				isVisible ? "translate-y-0" : "-translate-y-full"
 			} backdrop-filter backdrop-blur-lg`}
 		>
@@ -58,7 +58,7 @@ export default function Navbar() {
 				<NavigationMenuItem>
 					<NavigationMenuLink
 						asChild
-						className={navigationMenuTriggerStyle()}
+						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 					>
 						<Link href="#home">Home</Link>
 					</NavigationMenuLink>
@@ -66,7 +66,7 @@ export default function Navbar() {
 				<NavigationMenuItem>
 					<NavigationMenuLink
 						asChild
-						className={navigationMenuTriggerStyle()}
+						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 					>
 						<Link href="#menu">Menu</Link>
 					</NavigationMenuLink>
@@ -74,7 +74,7 @@ export default function Navbar() {
 				<NavigationMenuItem>
 					<NavigationMenuLink
 						asChild
-						className={navigationMenuTriggerStyle()}
+						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 					>
 						<Link href="#where">Where We Are</Link>
 					</NavigationMenuLink>
@@ -82,7 +82,7 @@ export default function Navbar() {
 				<NavigationMenuItem>
 					<NavigationMenuLink
 						asChild
-						className={navigationMenuTriggerStyle()}
+						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 					>
 						<Link href="#about">About Us</Link>
 					</NavigationMenuLink>
@@ -90,7 +90,7 @@ export default function Navbar() {
 				<NavigationMenuItem>
 					<NavigationMenuLink
 						asChild
-						className={navigationMenuTriggerStyle()}
+						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 					>
 						<Link href="#contact">Contact</Link>
 					</NavigationMenuLink>
@@ -103,7 +103,7 @@ export default function Navbar() {
 				<SheetTrigger className="md:hidden p-5">
 					<BiMenu className="text-3xl" />
 				</SheetTrigger>
-				<SheetContent>
+				<SheetContent className="z-50">
 					<SheetHeader className="hidden">
 						<SheetTitle>Navigation</SheetTitle>
 						<SheetDescription>
@@ -114,7 +114,7 @@ export default function Navbar() {
 						<NavigationMenuItem>
 							<NavigationMenuLink
 								asChild
-								className={navigationMenuTriggerStyle()}
+								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 							>
 								<SheetClose asChild>
 									<Link href="#home">Home</Link>
@@ -124,7 +124,7 @@ export default function Navbar() {
 						<NavigationMenuItem>
 							<NavigationMenuLink
 								asChild
-								className={navigationMenuTriggerStyle()}
+								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 							>
 								<SheetClose asChild>
 									<Link href="#menu">Menu</Link>
@@ -134,7 +134,7 @@ export default function Navbar() {
 						<NavigationMenuItem>
 							<NavigationMenuLink
 								asChild
-								className={navigationMenuTriggerStyle()}
+								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 							>
 								<SheetClose asChild>
 									<Link href="#where">Where We Are</Link>
@@ -144,7 +144,7 @@ export default function Navbar() {
 						<NavigationMenuItem>
 							<NavigationMenuLink
 								asChild
-								className={navigationMenuTriggerStyle()}
+								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 							>
 								<SheetClose asChild>
 									<Link href="#about">About Us</Link>
@@ -154,7 +154,7 @@ export default function Navbar() {
 						<NavigationMenuItem>
 							<NavigationMenuLink
 								asChild
-								className={navigationMenuTriggerStyle()}
+								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
 							>
 								<SheetClose asChild>
 									<Link href="#contact">Contact</Link>
