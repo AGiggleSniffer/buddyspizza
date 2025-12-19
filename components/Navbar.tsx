@@ -1,169 +1,108 @@
 "use client";
 import {
-	NavigationMenu,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-	navigationMenuTriggerStyle,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import ModeToggle from "@/components/ModeToggle";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import {
-	Sheet,
-	SheetClose,
-	SheetContent,
-	SheetDescription,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
-import { BiMenu, BiX } from "react-icons/bi";
+import { BiMenu } from "react-icons/bi";
+
+const links = [
+  { name: "Home", href: "#home" },
+  { name: "Menu", href: "#menu" },
+  { name: "Where We Are", href: "#map" },
+  { name: "About Us", href: "#about" },
+  { name: "Contact", href: "#contact" },
+];
 
 export default function Navbar() {
-	const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
 
-	useEffect(() => {
-		let lastScrollY = window.scrollY;
+  const menuItems = links.map(({ name, href }) => (
+    <NavigationMenuItem key={`${name}${href}`}>
+      <NavigationMenuLink
+        asChild
+        className={`${navigationMenuTriggerStyle()} `}
+      >
+        <Link
+          href={href}
+          className="after:bg-primary dark:hover:bg-muted/70 hover:bg-muted/50 relative bg-transparent after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full"
+        >
+          {name}
+        </Link>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+  ));
 
-		const controlNavbar = () => {
-			const currentScrollY = window.scrollY;
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
 
-			if (currentScrollY > lastScrollY && currentScrollY > 100) {
-				// Scrolling down
-				setIsVisible(false);
-			} else {
-				// Scrolling up
-				setIsVisible(true);
-			}
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
 
-			lastScrollY = currentScrollY;
-		};
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
 
-		window.addEventListener("scroll", controlNavbar);
+      lastScrollY = currentScrollY;
+    };
 
-		return () => {
-			window.removeEventListener("scroll", controlNavbar);
-		};
-	}, []);
+    window.addEventListener("scroll", controlNavbar);
 
-	return (
-		<NavigationMenu
-			className={`min-w-full justify-end shadow-lg dark:shadow-sm dark:shadow-neutral-900 transition-transform duration-300 ${
-				isVisible ? "translate-y-0" : "-translate-y-full"
-			} backdrop-filter backdrop-blur-lg`}
-		>
-			<NavigationMenuList className="p-5 hidden md:flex">
-				<NavigationMenuItem>
-					<NavigationMenuLink
-						asChild
-						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-					>
-						<Link href="#home">Home</Link>
-					</NavigationMenuLink>
-				</NavigationMenuItem>
-				<NavigationMenuItem>
-					<NavigationMenuLink
-						asChild
-						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-					>
-						<Link href="#menu">Menu</Link>
-					</NavigationMenuLink>
-				</NavigationMenuItem>
-				<NavigationMenuItem>
-					<NavigationMenuLink
-						asChild
-						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-					>
-						<Link href="#where">Where We Are</Link>
-					</NavigationMenuLink>
-				</NavigationMenuItem>
-				<NavigationMenuItem>
-					<NavigationMenuLink
-						asChild
-						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-					>
-						<Link href="#about">About Us</Link>
-					</NavigationMenuLink>
-				</NavigationMenuItem>
-				<NavigationMenuItem>
-					<NavigationMenuLink
-						asChild
-						className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-					>
-						<Link href="#contact">Contact</Link>
-					</NavigationMenuLink>
-				</NavigationMenuItem>
-			</NavigationMenuList>
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, []);
 
-			<ModeToggle />
+  return (
+    <NavigationMenu
+      className={`bg-background/70 max-w-dvw min-w-full justify-end shadow-lg transition-transform duration-300 dark:shadow-sm dark:shadow-neutral-900 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      } backdrop-blur-sm backdrop-filter`}
+    >
+      <div className={`fixed left-0 mx-10 font-bold md:text-2xl`}>
+        Buddy&apos;s <span className="text-primary">Woodfire Pizza</span>
+      </div>
 
-			<Sheet>
-				<SheetTrigger className="md:hidden p-5">
-					<BiMenu className="text-3xl" />
-				</SheetTrigger>
-				<SheetContent className="z-50">
-					<SheetHeader className="hidden">
-						<SheetTitle>Navigation</SheetTitle>
-						<SheetDescription>
-							Navigate to different parts of the website
-						</SheetDescription>
-					</SheetHeader>
-					<NavigationMenuList className="flex-col min-h-screen justify-start mt-15">
-						<NavigationMenuItem>
-							<NavigationMenuLink
-								asChild
-								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-							>
-								<SheetClose asChild>
-									<Link href="#home">Home</Link>
-								</SheetClose>
-							</NavigationMenuLink>
-						</NavigationMenuItem>
-						<NavigationMenuItem>
-							<NavigationMenuLink
-								asChild
-								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-							>
-								<SheetClose asChild>
-									<Link href="#menu">Menu</Link>
-								</SheetClose>
-							</NavigationMenuLink>
-						</NavigationMenuItem>
-						<NavigationMenuItem>
-							<NavigationMenuLink
-								asChild
-								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-							>
-								<SheetClose asChild>
-									<Link href="#where">Where We Are</Link>
-								</SheetClose>
-							</NavigationMenuLink>
-						</NavigationMenuItem>
-						<NavigationMenuItem>
-							<NavigationMenuLink
-								asChild
-								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-							>
-								<SheetClose asChild>
-									<Link href="#about">About Us</Link>
-								</SheetClose>
-							</NavigationMenuLink>
-						</NavigationMenuItem>
-						<NavigationMenuItem>
-							<NavigationMenuLink
-								asChild
-								className={`${navigationMenuTriggerStyle()} dark:bg-transparent dark:text-white`}
-							>
-								<SheetClose asChild>
-									<Link href="#contact">Contact</Link>
-								</SheetClose>
-							</NavigationMenuLink>
-						</NavigationMenuItem>
-					</NavigationMenuList>
-				</SheetContent>
-			</Sheet>
-		</NavigationMenu>
-	);
+      <NavigationMenuList className="hidden p-5 md:flex">
+        {menuItems}
+      </NavigationMenuList>
+
+      <ModeToggle />
+
+      <Sheet>
+        <SheetTrigger className="p-5 md:hidden">
+          <BiMenu className="text-3xl" />
+        </SheetTrigger>
+        <SheetContent className="z-50">
+          <SheetHeader className="hidden">
+            <SheetTitle>Navigation</SheetTitle>
+            <SheetDescription>
+              Navigate to different parts of the website
+            </SheetDescription>
+          </SheetHeader>
+          <NavigationMenuList className="mt-15 min-h-screen flex-col justify-start">
+            {menuItems}
+          </NavigationMenuList>
+        </SheetContent>
+      </Sheet>
+    </NavigationMenu>
+  );
 }
