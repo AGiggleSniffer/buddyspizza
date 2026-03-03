@@ -3,8 +3,8 @@ import ParallaxSection from "./utils/ParallaxSection";
 
 export default function SectionAbout() {
   return (
-    <ParallaxSection className="bg-background h-screen px-4 py-20" id="about">
-      <div className="mx-auto h-full max-w-6xl">
+    <ParallaxSection className="bg-background h-screen px-4 py-30 flex" id="about">
+      <div className="mx-auto max-w-6xl">
         <div className="grid h-full items-center gap-12 md:grid-cols-2">
           <div>
             <h2 className="mb-6 text-5xl">About Us</h2>

@@ -6,39 +6,61 @@ const menuItems = [
     name: "Pepperoni",
     price: "$18",
     description:
-      "Classic pepperoni with our signature tomato sauce and mozzarella",
+      "Classic pepperoni with tangy tomato sauce and creamy mozzarella",
   },
   {
     id: 2,
     name: "Cheese",
     price: "$14",
     description:
-      "Simple and delicious - fresh mozzarella on our wood-fired crust",
+      "Pure simplicity. Fresh mozzarella on our signature wood-fired crust",
   },
   {
     id: 3,
     name: "Margherita",
-    price: "$16",
-    description: "Fresh basil, tomatoes, and mozzarella - a timeless classic",
+    price: "$15",
+    description:
+      "The Italian way. Fresh basil, ripe tomatoes, and silky mozzarella",
   },
   {
     id: 4,
-    name: "Supreme",
+    name: "Spicy Pepperoni",
     price: "$20",
-    description:
-      "Loaded with pepperoni, sausage, peppers, onions, and mushrooms",
+    description: "Pepperoni turned up to 11 with hot honey and cracked pepper",
   },
   {
     id: 5,
-    name: "BBQ Chicken",
+    name: "The Meat",
     price: "$19",
-    description: "Grilled chicken, red onions, cilantro, and tangy BBQ sauce",
+    description:
+      "Meat lovers rejoice. Pepperoni, ham, and sausage in perfect harmony",
   },
   {
     id: 6,
-    name: "Veggie Delight",
+    name: "Hawaiian",
     price: "$17",
-    description: "Seasonal vegetables, olives, and fresh herbs",
+    description:
+      "The controversial classic. Sweet ham, tropical pineapple, and mozzarella",
+  },
+  {
+    id: 7,
+    name: "Sweet n' Spicy Piggy",
+    price: "$17",
+    description:
+      "Ham meets pineapple meets jalapeño heat with a drizzle of hot honey",
+  },
+  {
+    id: 8,
+    name: "Buddy's Breadsticks",
+    price: "$11",
+    description:
+      "Crispy, golden, and dangerously addictive with garlic and parmesan",
+  },
+  {
+    id: 9,
+    name: "Extra Toppings",
+    price: "$2",
+    description: "Make it yours. Add any topping your heart desires",
   },
 ];
 
@@ -46,12 +68,14 @@ export default function SectionMenu() {
   return (
     <ParallaxSection
       id="menu"
-      className="bg-background min-h-screen px-4 py-20"
+      className="bg-background flex h-screen px-4 py-30"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="m-auto">
         <div className="mb-16 text-center">
-          <Pizza className="text-primary mx-auto mb-4 h-12 w-12" />
-          <h2 className="mb-4 text-5xl">Our Menu</h2>
+          <h2 className="mb-4 flex justify-center text-5xl">
+            <Pizza className="text-primary mr-4 h-12 w-12" />
+            Our Menu
+          </h2>
           <p className="text-muted-foreground text-xl">
             Fresh ingredients, authentic recipes, wood-fired perfection
           </p>

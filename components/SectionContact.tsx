@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MapPin, Phone, Clock } from "lucide-react";
 import ParallaxSection from "./utils/ParallaxSection";
+import Footer from "./Footer";
 
 export default function SectionContact() {
   const [formData, setFormData] = useState({
@@ -19,7 +20,10 @@ export default function SectionContact() {
   };
 
   return (
-    <ParallaxSection id="contact" className="bg-secondary h-screen px-4 py-20">
+    <ParallaxSection
+      id="contact"
+      className="bg-secondary flex min-h-screen px-4 py-30"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-5xl">Get in Touch</h2>
@@ -123,6 +127,7 @@ export default function SectionContact() {
                   id="message"
                   required
                   rows={5}
+                  cols={50}
                   value={formData.message}
                   onChange={(e) =>
                     setFormData({

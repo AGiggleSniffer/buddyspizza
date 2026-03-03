@@ -32,7 +32,7 @@ export default function Hero() {
 
   return (
     <ParallaxSection
-      className="flex min-h-screen min-w-screen justify-center"
+      className="flex h-screen w-screen"
       id="home"
     >
       <div
@@ -41,14 +41,14 @@ export default function Hero() {
       >
         <div className="absolute inset-0 bg-black/60" />
       </div>
-      <div ref={title} className="z-10 flex flex-col items-center gap-3 p-30">
+      <div ref={title} className="z-10 flex flex-col gap-3 p-30">
         <h1 className="text-7xl leading-tight font-extrabold text-white">
           Authentic Italian
         </h1>
-        <h2 className="text-center text-6xl text-white italic">
+        <h2 className="text-6xl text-white italic">
           Pizza Perfection
         </h2>
-        <p className="text-muted-foreground text-center text-xl">
+        <p className="text-muted-foreground text-xl">
           <span>
             Hand-tossed dough, premium ingredients, and wood-fired excellence.
           </span>

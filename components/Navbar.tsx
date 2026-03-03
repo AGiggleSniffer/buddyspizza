@@ -19,6 +19,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { BiMenu } from "react-icons/bi";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 const links = [
   { name: "Home", href: "#home" },
@@ -31,6 +37,29 @@ const links = [
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
 
+  const handleScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    e.preventDefault();
+
+    const target = document.querySelector(href) as HTMLElement | null;
+    if (!target) return;
+
+    // Prefer scrolling to the ScrollTrigger start if available (stored by ParallaxSection)
+    const stStart = target.dataset?.stStart;
+    const scrollTarget = stStart
+      ? Number(stStart)
+      : window.scrollY + target.getBoundingClientRect().top;
+
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: { y: scrollTarget, autoKill: false },
+      ease: "power3.inOut",
+      onComplete: () => ScrollTrigger.refresh(),
+    });
+  };
+
   const menuItems = links.map(({ name, href }) => (
     <NavigationMenuItem key={`${name}${href}`}>
       <NavigationMenuLink
@@ -39,6 +68,7 @@ export default function Navbar() {
       >
         <Link
           href={href}
+          onClick={(e) => handleScroll(e, href)}
           className="after:bg-primary dark:hover:bg-muted/70 hover:bg-muted/50 relative bg-transparent after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full"
         >
           {name}

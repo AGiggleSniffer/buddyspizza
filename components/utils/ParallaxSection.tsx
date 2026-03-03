@@ -13,21 +13,29 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 const ParallaxSection = ({ children, ...props }: Props) => {
   const container = useRef<HTMLElement>(null);
 
-  useGSAP(() => {
-    if (!container.current) return;
+  useGSAP(
+    () => {
+      if (!container.current) return;
 
-    gsap.to(container.current, {
-      scrollTrigger: {
+      let st: ScrollTrigger | null = null;
+
+      st = ScrollTrigger.create({
         trigger: container.current,
         start: "top top",
+        end: "bottom top",
         pin: true,
         pinSpacing: false,
-        // scrub: true,
-      },
-    });
-
-    // tl.to(container.current, { y: -300 }, 0);
-  });
+        anticipatePin: 1,
+        onRefresh: () => {
+          if (container.current && st) {
+            // store the computed start scroll position (pixels) on the element
+            container.current.dataset.stStart = String(st.start);
+          }
+        },
+      });
+    },
+    { scope: container },
+  );
 
   return (
     <section ref={container} {...props}>
