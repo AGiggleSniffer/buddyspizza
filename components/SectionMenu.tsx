@@ -1,5 +1,10 @@
-import { Pizza } from "lucide-react";
-import ParallaxSection from "./utils/ParallaxSection";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 const menuItems = [
   {
     id: 1,
@@ -66,36 +71,43 @@ const menuItems = [
 
 export default function SectionMenu() {
   return (
-    <ParallaxSection
-      id="menu"
-      className="bg-background flex h-screen px-4 py-30"
-    >
-      <div className="m-auto">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 flex justify-center text-5xl">
-            <Pizza className="text-primary mr-4 h-12 w-12" />
-            Our Menu
-          </h2>
-          <p className="text-muted-foreground text-xl">
-            Fresh ingredients, authentic recipes, wood-fired perfection
-          </p>
+    <section className="h-screen px-[25%] py-20" id="menu">
+      <h2 className="border-primary font-playfair border-b-2 pb-4 text-center text-3xl tracking-wider">
+        MENU
+      </h2>
+      <p className="text-primary font-playfair pt-1 text-center text-xs tracking-wide">
+        Wood-fired • Made fresh daily
+      </p>
+      <Accordion type="single" collapsible className="mt-4 justify-center pb-4">
+        {menuItems.map((item) => (
+          <AccordionItem key={item.id} value={item.name}>
+            <AccordionTrigger className="hover:text-primary transform cursor-pointer transition-colors">
+              <div className="flex w-full justify-between pr-4 tracking-wide">
+                <p>
+                  <span className="text-muted-foreground font-playfair pr-4 text-xs italic">
+                    {String(item.id).padStart(2, "0")}
+                  </span>
+                  {item.name}
+                </p>
+                <p>{item.price}</p>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>{item.description}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+
+      <div className="text-center">
+        <div className="mb-4 flex items-center gap-4">
+          <div className="via-primary h-px flex-1 bg-gradient-to-r from-transparent to-transparent" />
+          <span className="text-xs text-amber-700">◆</span>
+          <div className="via-primary h-px flex-1 bg-gradient-to-r from-transparent to-transparent" />
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {menuItems.map((item) => (
-            <div
-              key={item.id}
-              className="bg-accent hover:text-primary rounded-lg border border-neutral-200 p-6 transition-colors"
-            >
-              <div className="mb-3 flex items-start justify-between">
-                <h3 className="text-2xl">{item.name}</h3>
-                <span className="text-primary text-xl">{item.price}</span>
-              </div>
-              <p className="text-muted-foreground">{item.description}</p>
-            </div>
-          ))}
-        </div>
+        <p className="text-muted-foreground text-[10px] tracking-[0.25em] uppercase">
+          All pizzas available as 12&quot;
+        </p>
       </div>
-    </ParallaxSection>
+    </section>
   );
 }

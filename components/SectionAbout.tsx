@@ -1,39 +1,31 @@
 import Image from "next/image";
-import ParallaxSection from "./utils/ParallaxSection";
 
 export default function SectionAbout() {
   return (
-    <ParallaxSection className="bg-background h-screen px-4 py-30 flex" id="about">
-      <div className="mx-auto max-w-6xl">
-        <div className="grid h-full items-center gap-12 md:grid-cols-2">
-          <div>
-            <h2 className="mb-6 text-5xl">About Us</h2>
-            <p className="text-muted-foreground mb-4 text-lg">
-              At Buddy&apos;s WoodFire Pizza, we believe in keeping it simple
-              and doing it right. Every pizza is crafted by hand and cooked in
-              our authentic wood-fired oven, reaching temperatures that create
-              that perfect crispy crust with a soft, chewy center.
-            </p>
-            <p className="text-muted-foreground mb-4 text-lg">
-              We source the freshest local ingredients and make our dough daily.
-              Our passion is bringing people together over great food, and we
-              treat every customer like family.
-            </p>
-            <p className="text-muted-foreground text-lg">
-              Come visit us and taste the difference that traditional methods
-              and quality ingredients make.
-            </p>
-          </div>
-          <div className="overflow-hidden rounded-lg shadow-xl">
-            <Image
-              src="/pizzaoven.jpg"
-              alt="Pizza restaurant interior"
-              height={1000}
-              width={1000}
-            />
-          </div>
+    <section className="h-screen" id="about">
+      <div className="font-playfair grid h-full grid-cols-10 items-center gap-12 py-2">
+        <div className="col-span-3 px-25 tracking-wide">
+          <h2 className="border-primary font-playfair border-b-2 pb-4 text-center text-2xl">
+            WHO WE ARE
+          </h2>
+          <p className="text-muted-foreground border-primary border-b-2 border-dashed py-4">
+            At Buddy&apos;s WoodFire Pizza, we keep it simple and do it right.
+            Every pizza is hand-crafted and wood-fired for that perfect crispy,
+            chewy crust. We use fresh local ingredients and make our dough from
+            scratch daily because we love bringing people together over great
+            food.
+          </p>
+        </div>
+        <div className="col-span-7 h-full w-full overflow-hidden">
+          <Image
+            className="h-full w-full object-center"
+            src="/pizzaoven.jpg"
+            alt="Pizza restaurant interior"
+            height={1000}
+            width={1000}
+          />
         </div>
       </div>
-    </ParallaxSection>
+    </section>
   );
 }

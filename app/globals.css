@@ -7,6 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --font-playfair: var(--font-playfair);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -83,7 +84,7 @@
 }
 
 .dark {
-  --background: oklch(0.147 0.004 49.25);
+  --background: #1c1a17;
   --foreground: oklch(0.985 0.001 106.423);
   --card: oklch(0.216 0.006 56.043);
   --card-foreground: oklch(0.985 0.001 106.423);
@@ -91,7 +92,7 @@
   --popover-foreground: oklch(0.985 0.001 106.423);
   --primary: oklch(0.77 0.16 70);
   --primary-foreground: oklch(0.28 0.07 46);
-  --secondary: oklch(0.274 0.006 286.033);
+  --secondary: #1a1510;
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.268 0.007 34.298);
   --muted-foreground: oklch(0.709 0.01 56.259);
@@ -130,3 +131,4 @@
 @utility no-scrollbar {
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
+

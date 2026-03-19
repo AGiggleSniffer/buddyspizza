@@ -3,9 +3,14 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import ThemeProvider from "@/components/ThemeProvider";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import ScrollSnap from "@/components/utils/ScrollSnap";
+import { Playfair_Display } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("no-scrollbar", inter.variable)}>
+    <html lang="en" className={cn("no-scrollbar", inter.variable, playfair.variable)}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} scroll-smooth antialiased`}
       >
@@ -38,7 +43,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ScrollSnap />
           {children}
         </ThemeProvider>
       </body>

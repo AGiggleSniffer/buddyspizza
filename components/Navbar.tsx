@@ -19,12 +19,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { BiMenu } from "react-icons/bi";
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 const links = [
   { name: "Home", href: "#home" },
@@ -37,28 +31,29 @@ const links = [
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
 
-  const handleScroll = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
-  ) => {
-    e.preventDefault();
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
 
-    const target = document.querySelector(href) as HTMLElement | null;
-    if (!target) return;
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
 
-    // Prefer scrolling to the ScrollTrigger start if available (stored by ParallaxSection)
-    const stStart = target.dataset?.stStart;
-    const scrollTarget = stStart
-      ? Number(stStart)
-      : window.scrollY + target.getBoundingClientRect().top;
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
 
-    gsap.to(window, {
-      duration: 1,
-      scrollTo: { y: scrollTarget, autoKill: false },
-      ease: "power3.inOut",
-      onComplete: () => ScrollTrigger.refresh(),
-    });
-  };
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", controlNavbar);
+
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, []);
 
   const menuItems = links.map(({ name, href }) => (
     <NavigationMenuItem key={`${name}${href}`}>
@@ -68,8 +63,7 @@ export default function Navbar() {
       >
         <Link
           href={href}
-          onClick={(e) => handleScroll(e, href)}
-          className="after:bg-primary dark:hover:bg-muted/70 hover:bg-muted/50 relative bg-transparent after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full"
+          className="after:bg-primary dark:hover:bg-muted/70 hover:bg-muted-foreground/50 relative bg-transparent after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full"
         >
           {name}
         </Link>
@@ -103,7 +97,7 @@ export default function Navbar() {
 
   return (
     <NavigationMenu
-      className={`bg-background/70 max-w-dvw min-w-full justify-end shadow-lg transition-transform duration-300 dark:shadow-sm dark:shadow-neutral-900 ${
+      className={`bg-background max-w-dvw min-w-full justify-end shadow-lg transition-transform duration-300 dark:shadow-sm dark:shadow-neutral-900 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       } backdrop-blur-sm backdrop-filter`}
     >
