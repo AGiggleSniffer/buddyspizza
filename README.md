@@ -1,38 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Buddy's Pizza
 
-## Getting Started
+Pizza website to show the location and menu
 
-First, run the development server:
+## Start Server
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This repo contains a docker image to easily host anywhere just run:
+
+```
+# bash
+docker build -t next-site . && docker run -p 4080:4080 --rm next-site
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Alternatively you can use Docker Compose:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Example YAML
+```
+version: "3.8"
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+services:
+  pizza-website: 
+    image: agigglesniffer/buddyspizza:latest
+    container_name: pizza-website
+    ports:
+      - "4080:4080"
+    restart: unless-stopped
+```
+```
+# bash
+docker compose up
+```
 
-## Learn More
+## Develop
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone repo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install Dependencies using [pnpm](https://pnpm.io/installation)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+# bash
+pnpm install
+```
 
-## Deploy on Vercel
+3. Compile changes
+    - This will run the linter and formatter as well.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+# bash
+pnpm build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Run Dev Server
 
-# buddyspizza
+```
+# bash
+pnpm dev
+```
+
+5. Push and merge to main to auto trigger CI/CD pipepline
+
+## Wireframe 
+
+![Sketch wireframe of the site](./public/wireframe.svg)
+
+## DevOps
+
+### Automatic Updates
+1. Pushing to main triggers a [Github Action](https://github.com/AGiggleSniffer/buddyspizza/tree/main/.github/workflows) to build the docker image and upload it to [Docker Hub](https://hub.docker.com/r/agigglesniffer/buddyspizza)
+
+2. [Watchtower](https://containrrr.dev/watchtower/) checks for updates in a seperate docker container and handles remaking the container with almost no downtime
+
+![Sketch wireframe of CI/CD pipeline](./public/devops.png)

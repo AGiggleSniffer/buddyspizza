@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Phone, Clock } from "lucide-react";
+import { Phone, Instagram, Mail } from "lucide-react";
+import { EMAIL, INSTAGRAM, PHONE_NUMBER } from "@/lib/config";
 
 export default function SectionContact() {
   const [formData, setFormData] = useState({
@@ -18,10 +19,15 @@ export default function SectionContact() {
   };
 
   return (
-    <section className="bg-secondary h-screen py-2" id="contact">
-      <div className="grid h-full grid-cols-10 items-center">
-        <div className="col-span-7 px-25 tracking-wide">
-          <h3 className="font-playfair mb-6 text-3xl">Send a Message</h3>
+    <section
+      className="bg-secondary px-2 py-2 md:h-screen md:px-0"
+      id="contact"
+    >
+      <div className="grid h-full grid-rows-2 md:grid-cols-10">
+        <div className="h-full flex-col items-center justify-center overflow-hidden md:col-span-6 md:row-span-2 md:flex md:px-25">
+          <h3 className="font-playfair mb-6 text-center text-3xl md:text-left">
+            Send a Message
+          </h3>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -80,6 +86,7 @@ export default function SectionContact() {
                 required
                 rows={5}
                 cols={50}
+                defaultValue="Why don't you make my favorite pizza?!?"
                 value={formData.message}
                 onChange={(e) =>
                   setFormData({
@@ -93,40 +100,37 @@ export default function SectionContact() {
 
             <button
               type="submit"
-              className="bg-primary font-playfair w-full cursor-pointer rounded-lg py-3 text-white transition-colors hover:bg-orange-400"
+              className="bg-primary font-playfair w-full cursor-pointer rounded-lg py-3 font-bold text-white transition-colors hover:bg-orange-400"
             >
               Send Message
             </button>
           </form>
         </div>
-        <div className="col-span-3 px-25 tracking-wide">
+        <div className="flex w-full flex-col justify-center p-[15%] tracking-wide md:col-span-3 md:row-span-2 md:py-0">
           <h2 className="border-primary font-playfair border-b-2 pb-4 text-center text-2xl">
             SOCIALS
           </h2>
           <div className="space-y-6 py-4">
             <div className="flex gap-4">
-              <MapPin className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <Instagram className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
               <div>
-                <p className="mb-1">Firefly Lounge</p>
-                <p className="text-muted-foreground">
-                  1443 Fulton Ave, Sacramento, CA 95825
-                </p>
+                <p className="mb-1">Instagram</p>
+                <p className="text-muted-foreground">@{INSTAGRAM}</p>
               </div>
             </div>
 
             <div className="flex gap-4">
-              <Clock className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <Mail className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
               <div>
-                <p className="mb-2">Hours:</p>
-                <p className="text-muted-foreground">Saturdays:</p>
-                <p className="text-muted-foreground">4pm - 10pm</p>
+                <p className="mb-1">Email</p>
+                <p className="text-muted-foreground">{EMAIL}</p>
               </div>
             </div>
 
             <div className="border-primary flex gap-4 border-b-2 border-dashed pb-4">
               <Phone className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
               <div>
-                <p className="mb-1">(555) 555-5555</p>
+                <p className="mb-1">{PHONE_NUMBER}</p>
               </div>
             </div>
           </div>

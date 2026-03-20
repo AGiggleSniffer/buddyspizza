@@ -11,9 +11,7 @@ import ModeToggle from "@/components/ModeToggle";
 import { useEffect, useState } from "react";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -55,17 +53,20 @@ export default function Navbar() {
     };
   }, []);
 
-  const menuItems = links.map(({ name, href }) => (
-    <NavigationMenuItem key={`${name}${href}`}>
+  const menuItems = links.map(({ name, href }, index) => (
+    <NavigationMenuItem key={`${name}${href}`} className="w-full md:w-auto">
       <NavigationMenuLink
         asChild
-        className={`${navigationMenuTriggerStyle()} `}
+        className={`${navigationMenuTriggerStyle()} w-full text-xl md:text-xs`}
       >
         <Link
           href={href}
-          className="after:bg-primary dark:hover:bg-muted/70 hover:bg-muted-foreground/50 relative bg-transparent after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full"
+          className="after:bg-primary dark:hover:bg-muted/70 hover:bg-muted-foreground/50 font-playfair hover:text-primary relative flex justify-between bg-transparent py-8 tracking-widest uppercase after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full md:py-0"
         >
-          {name}
+          <span className="text-muted-foreground text-sm tracking-normal md:hidden">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span>{name}</span>
         </Link>
       </NavigationMenuLink>
     </NavigationMenuItem>
@@ -97,17 +98,20 @@ export default function Navbar() {
 
   return (
     <NavigationMenu
-      className={`bg-background max-w-dvw min-w-full justify-end shadow-lg transition-transform duration-300 dark:shadow-sm dark:shadow-neutral-900 ${
+      className={`bg-background max-w-dvw min-w-full justify-end shadow-lg backdrop-blur-sm backdrop-filter transition-transform duration-300 dark:shadow-sm dark:shadow-neutral-900 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
-      } backdrop-blur-sm backdrop-filter`}
+      }`}
     >
-      <div className={`fixed left-0 mx-10 font-bold md:text-2xl`}>
-        Buddy&apos;s <span className="text-primary">Woodfire Pizza</span>
+      <div className="fixed left-0 mx-10 flex flex-col font-serif font-bold tracking-wide">
+        <span className="text-primary font-playfair">Buddy&apos;s </span>
+        <span className="italic">Woodfire Pizza</span>
       </div>
 
       <NavigationMenuList className="hidden p-5 md:flex">
         {menuItems}
       </NavigationMenuList>
+
+      <div className="bg-primary hidden h-4 w-px md:flex" />
 
       <ModeToggle />
 
@@ -116,13 +120,23 @@ export default function Navbar() {
           <BiMenu className="text-3xl" />
         </SheetTrigger>
         <SheetContent className="z-50">
-          <SheetHeader className="hidden">
-            <SheetTitle>Navigation</SheetTitle>
-            <SheetDescription>
-              Navigate to different parts of the website
-            </SheetDescription>
+          <SheetHeader>
+            <SheetTitle>
+              {
+                <div className="flex flex-col font-serif font-bold tracking-wide">
+                  <span className="text-primary font-playfair">
+                    Buddy&apos;s{" "}
+                  </span>
+                  <span className="italic">Woodfire Pizza</span>
+                </div>
+              }
+            </SheetTitle>
+            <div className="bg-primary my-4 h-px w-full" />
           </SheetHeader>
-          <NavigationMenuList className="mt-15 min-h-screen flex-col justify-start">
+          <NavigationMenuList
+            onClick={() => setIsVisible(false)}
+            className="min-h-screen w-full flex-col justify-start"
+          >
             {menuItems}
           </NavigationMenuList>
         </SheetContent>
