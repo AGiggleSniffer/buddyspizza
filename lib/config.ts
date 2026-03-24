@@ -4,13 +4,13 @@ export const GOOGLE_MAPS_SRC =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6236.94014556288!2d-121.40467302365303!3d38.59204946466265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ada4aed7d81db%3A0x4cb3462b68159820!2sFirefly%20Lounge!5e0!3m2!1sen!2sus!4v1766071035428!5m2!1sen!2sus";
 
 export const HOURS = [
-  {
-    day: "Saturdays",
-    hours: "4pm - 10pm",
-  },
+  // {
+  //   day: "Saturdays",
+  //   hours: "4pm - 10pm",
+  // },
   {
     day: "Sundays",
-    hours: "4pm - 10pm",
+    hours: "3pm - 8pm",
   },
 ];
 export const PHONE_NUMBER = "(555) 555-5555";
@@ -41,42 +41,27 @@ export const MENU_ITEMS = [
   },
   {
     id: 4,
-    name: "Spicy Pepperoni",
-    price: "$20",
-    description: "Pepperoni turned up to 11 with hot honey and cracked pepper",
-  },
-  {
-    id: 5,
-    name: "The Meat",
-    price: "$19",
-    description:
-      "Meat lovers rejoice. Pepperoni, ham, and sausage in perfect harmony",
-  },
-  {
-    id: 6,
-    name: "Hawaiian",
-    price: "$17",
-    description:
-      "The controversial classic. Sweet ham, tropical pineapple, and mozzarella",
-  },
-  {
-    id: 7,
-    name: "Sweet n' Spicy Piggy",
-    price: "$17",
-    description:
-      "Ham meets pineapple meets jalapeño heat with a drizzle of hot honey",
-  },
-  {
-    id: 8,
     name: "Buddy's Breadsticks",
     price: "$11",
     description:
       "Crispy, golden, and dangerously addictive with garlic and parmesan",
   },
   {
-    id: 9,
+    id: 5,
     name: "Extra Toppings",
     price: "$2",
     description: "Make it yours. Add any topping your heart desires",
+  },
+  {
+    id: 6,
+    name: "Ranch",
+    price: "$1",
+    description: "A cool, creamy fusion featuring tangy buttermilk and fresh herbs.",
+  },
+  {
+    id: 7,
+    name: "Red Sauce",
+    price: "$1",
+    description: "A savory, herb-infused blend of vine-ripened tomatoes and garlic.",
   },
 ];

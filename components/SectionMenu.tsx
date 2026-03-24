@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-import { MENU_ITEMS } from "@/lib/config";
+import { INSTAGRAM, MENU_ITEMS } from "@/lib/config";
 
 export default function SectionMenu() {
   return (
@@ -27,7 +27,7 @@ export default function SectionMenu() {
                   </span>
                   {item.name}
                 </p>
-                <p>{item.price}</p>
+                {/* <p>{item.price}</p> */}
               </div>
             </AccordionTrigger>
             <AccordionContent>{item.description}</AccordionContent>
@@ -43,6 +43,8 @@ export default function SectionMenu() {
         </div>
 
         <p className="text-muted-foreground text-[0.5rem] tracking-widest uppercase md:text-xs">
+          Check Instagram @{INSTAGRAM} for daily specials and prices
+          <br />
           All pizzas available as 12&quot;
         </p>
       </div>

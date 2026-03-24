@@ -18,7 +18,7 @@ export default function SectionAbout() {
         </div>
         <div className="row-start-1 h-full overflow-hidden md:col-span-7 md:row-span-2">
           <Image
-            className="h-full w-full object-center"
+            className="h-full w-full object-cover object-center"
             src="/pizzaoven.jpg"
             alt="Pizza restaurant interior"
             height={1000}
