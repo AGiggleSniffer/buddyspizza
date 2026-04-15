@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Phone, Instagram, Mail } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
+import { LuInstagram } from "react-icons/lu";
 import { EMAIL, INSTAGRAM, PHONE_NUMBER } from "@/lib/config";
 
 export default function SectionContact() {
@@ -86,7 +87,7 @@ export default function SectionContact() {
                 required
                 rows={5}
                 cols={50}
-                defaultValue="Why don't you make my favorite pizza?!?"
+                // defaultValue="Why don't you make my favorite pizza?!?"
                 value={formData.message}
                 onChange={(e) =>
                   setFormData({
@@ -112,7 +113,7 @@ export default function SectionContact() {
           </h2>
           <div className="space-y-6 py-4">
             <div className="flex gap-4">
-              <Instagram className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <LuInstagram className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
               <div>
                 <p className="mb-1">Instagram</p>
                 <p className="text-muted-foreground">@{INSTAGRAM}</p>
