@@ -1,5 +1,5 @@
 services:
-  pizza-website: 
+  pizza-website:
     image: agigglesniffer/buddyspizza:latest
     container_name: pizza-website
     ports:
