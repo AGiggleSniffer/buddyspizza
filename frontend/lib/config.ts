@@ -56,12 +56,14 @@ export const MENU_ITEMS = [
     id: 6,
     name: "Ranch",
     price: "$1",
-    description: "A cool, creamy fusion featuring tangy buttermilk and fresh herbs.",
+    description:
+      "A cool, creamy fusion featuring tangy buttermilk and fresh herbs.",
   },
   {
     id: 7,
     name: "Red Sauce",
     price: "$1",
-    description: "A savory, herb-infused blend of vine-ripened tomatoes and garlic.",
+    description:
+      "A savory, herb-infused blend of vine-ripened tomatoes and garlic.",
   },
 ];
