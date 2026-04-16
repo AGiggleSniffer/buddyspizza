@@ -17,7 +17,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { BiMenu } from "react-icons/bi";
-// import { getUser } from "@/server/queries";
 
 const links = [
   { name: "Home", href: "#home" },
@@ -27,10 +26,8 @@ const links = [
   { name: "Contact", href: "#contact" },
 ];
 
-export default async function Navbar() {
+export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
-
-  // const user = await getUser();
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -64,7 +61,7 @@ export default async function Navbar() {
       >
         <Link
           href={href}
-          className="after:bg-primary dark:hover:bg-muted/70 hover:bg-muted-foreground/50 font-playfair hover:text-primary relative flex justify-between bg-transparent py-8 tracking-widest uppercase after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full md:py-0"
+          className="after:bg-primary dark:hover:bg-muted/70 font-playfair hover:text-primary relative flex justify-between bg-transparent py-8 tracking-widest uppercase after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full md:py-0"
         >
           <span className="text-muted-foreground text-sm tracking-normal md:hidden">
             {String(index + 1).padStart(2, "0")}
