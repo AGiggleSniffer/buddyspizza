@@ -7,10 +7,7 @@ import {
 
 import { INSTAGRAM, MENU_ITEMS } from "@/lib/config";
 
-import { getUser } from "@/server/queries";
-
 export default async function SectionMenu() {
-  const user = await getUser();
   return (
     <section className="mb-8 h-screen px-4 py-20 md:px-[25%]" id="menu">
       <h2 className="border-primary font-playfair border-b-2 pb-4 text-center text-3xl tracking-wider">

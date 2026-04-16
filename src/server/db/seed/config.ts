@@ -10,7 +10,8 @@ export const HOURS = [
   // },
   {
     day: "Sundays",
-    hours: "3pm - 8pm",
+    start: '3pm',
+    end: "8pm",
   },
 ];
 export const PHONE_NUMBER = "(555) 555-5555";
