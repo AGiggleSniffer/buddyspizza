@@ -1,5 +1,5 @@
 {
-  "name": "pizza-webiste",
+  "name": "pizza-website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
     "db:up": "sudo docker compose -f ./docker-compose.dev.yml up",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:auth": "pnpm dlx auth@latest generate"
+    "db:seed": "pnpm run db:push && pnpm tsx ./src/server/db/seed/index.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
