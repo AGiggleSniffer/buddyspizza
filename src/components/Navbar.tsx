@@ -17,6 +17,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { BiMenu } from "react-icons/bi";
+// import { getUser } from "@/server/queries";
 
 const links = [
   { name: "Home", href: "#home" },
@@ -26,8 +27,10 @@ const links = [
   { name: "Contact", href: "#contact" },
 ];
 
-export default function Navbar() {
+export default async function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
+
+  // const user = await getUser();
 
   useEffect(() => {
     let lastScrollY = window.scrollY;

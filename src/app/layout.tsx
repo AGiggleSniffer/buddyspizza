@@ -36,6 +36,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn("no-scrollbar", inter.variable, playfair.variable)}
+      suppressHydrationWarning={true}
     >
       <body
         className={`${geistSans.variable} ${geistMono.variable} scroll-smooth antialiased`}
