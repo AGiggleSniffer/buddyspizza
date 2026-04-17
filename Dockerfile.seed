@@ -14,10 +14,10 @@ COPY --from=deps /app/node_modules ./node_modules
 # copy package files so pnpm exec works and config/schema needed by drizzle
 COPY package.json pnpm-lock.yaml ./
 COPY drizzle.config.ts ./
+COPY tsconfig.json ./
 
 # copy only the schema and seed code required by drizzle push and the seeder
-COPY src/server/db/schema ./src/server/db/schema
-COPY src/server/db/seed ./src/server/db/seed
+COPY src/server ./src/server
 
 # entrypoint script runs push then seed
 COPY ./scripts/docker-seed-entrypoint.sh /usr/local/bin/docker-seed-entrypoint.sh

@@ -2,8 +2,9 @@ import { db } from "..";
 import * as config from "./config";
 import * as schema from "../schema/schema";
 import { PgTable } from "drizzle-orm/pg-core";
+import createAdminUser from "./admin";
 
-const Seed = async () => {
+async function Seed() {
   if (await queryData(schema.time)) {
     console.log("Data already exists in the database. Skipping seeding.");
   } else {
@@ -65,6 +66,5 @@ const queryData = async (table: PgTable) => {
   return false;
 };
 
+createAdminUser();
 Seed();
-
-export default Seed;
