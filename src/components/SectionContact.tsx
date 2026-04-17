@@ -3,16 +3,15 @@
 import { useState } from "react";
 import { Phone, Mail } from "lucide-react";
 import { LuInstagram } from "react-icons/lu";
-import { EMAIL, INSTAGRAM, PHONE_NUMBER } from "@/lib/config";
 
-export default function SectionContact() {
+export default function SectionContact({email, instagram, phone}: {email: string, instagram: string, phone: string}) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
     // Handle form submission (would connect to backend in production)
     alert("Thanks for reaching out! We'll get back to you soon.");
@@ -116,7 +115,7 @@ export default function SectionContact() {
               <LuInstagram className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
               <div>
                 <p className="mb-1">Instagram</p>
-                <p className="text-muted-foreground">@{INSTAGRAM}</p>
+                <p className="text-muted-foreground">@{instagram}</p>
               </div>
             </div>
 
@@ -124,14 +123,14 @@ export default function SectionContact() {
               <Mail className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
               <div>
                 <p className="mb-1">Email</p>
-                <p className="text-muted-foreground">{EMAIL}</p>
+                <p className="text-muted-foreground">{email}</p>
               </div>
             </div>
 
             <div className="border-primary flex gap-4 border-b-2 border-dashed pb-4">
               <Phone className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
               <div>
-                <p className="mb-1">{PHONE_NUMBER}</p>
+                <p className="mb-1">{phone}</p>
               </div>
             </div>
           </div>

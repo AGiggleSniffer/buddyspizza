@@ -1,13 +1,7 @@
 import "server-only";
 import { db } from "./db";
 import * as schema from "./db/schema/schema";
-import { eq, InferSelectModel } from "drizzle-orm";
-
-// type about = InferSelectModel<typeof schema.about>;
-type time = InferSelectModel<typeof schema.time>;
-type contact = InferSelectModel<typeof schema.contact>;
-type address = InferSelectModel<typeof schema.address>;
-type menu = InferSelectModel<typeof schema.menu>;
+import { eq } from "drizzle-orm";
 
 //////////////////////////////////////
 //          ABOUT QUERIES           //
@@ -36,7 +30,7 @@ export const patchAbout = async (description: string): Promise<void> => {
 //         CONTACT QUERIES           //
 ///////////////////////////////////////
 
-export const getContact = async (): Promise<contact> => {
+export const getContact = async (): Promise<schema.contact> => {
   const contact = await db.query.contact.findFirst();
   if (!contact) {
     throw new Error("Contact information not found");
@@ -44,7 +38,7 @@ export const getContact = async (): Promise<contact> => {
   return contact;
 }
 
-export const patchContact = async (contactInfo: Partial<contact>): Promise<void> => {
+export const patchContact = async (contactInfo: Partial<schema.contact>): Promise<void> => {
   const contact = await db.query.contact.findFirst();
   if (contact) {
     await db.update(schema.contact)
@@ -59,7 +53,7 @@ export const patchContact = async (contactInfo: Partial<contact>): Promise<void>
 //            TIME QUERIES             //
 /////////////////////////////////////////
 
-export const getTime = async (): Promise<time[]> => {
+export const getTime = async (): Promise<schema.time[]> => {
   const time = await db.query.time.findMany();
   if (!time) {
     throw new Error("Time information not found");
@@ -67,7 +61,7 @@ export const getTime = async (): Promise<time[]> => {
   return time;
 }
 
-export const patchTime = async (day: string, timeInfo: Partial<time>): Promise<void> => {
+export const patchTime = async (day: string, timeInfo: Partial<schema.time>): Promise<void> => {
   const time = await db.query.time.findFirst({
     where: eq(schema.time.day, day),
   });
@@ -84,7 +78,7 @@ export const deleteTime = async (day: string): Promise<void> => {
   await db.delete(schema.time).where(eq(schema.time.day, day));
 }
 
-export const postTime = async (timeInfo: Omit<time, "id" | "createdAt" | "updatedAt">): Promise<time> => {
+export const postTime = async (timeInfo: Omit<schema.time, "id" | "createdAt" | "updatedAt">): Promise<schema.time> => {
   const time = await db.insert(schema.time).values(timeInfo).returning();
   if (!time) {
     throw new Error("Time information not found");
@@ -96,7 +90,7 @@ export const postTime = async (timeInfo: Omit<time, "id" | "createdAt" | "update
 //            ADDRESS QUERIES          //
 /////////////////////////////////////////
 
-export const getAddress = async (): Promise<address> => {
+export const getAddress = async (): Promise<schema.address> => {
   const address = await db.query.address.findFirst();
   if (!address) {
     throw new Error("Address information not found");
@@ -104,7 +98,7 @@ export const getAddress = async (): Promise<address> => {
   return address;
 }
 
-export const patchAddress = async (addressInfo: Partial<address>): Promise<void> => {
+export const patchAddress = async (addressInfo: Partial<schema.address>): Promise<void> => {
   const address = await db.query.address.findFirst();
   if (address) {
     await db.update(schema.address)
@@ -119,7 +113,7 @@ export const patchAddress = async (addressInfo: Partial<address>): Promise<void>
 //             MENU QUERIES             //
 //////////////////////////////////////////
 
-export const getMenu = async (): Promise<menu[]> => {
+export const getMenu = async (): Promise<schema.menu[]> => {
   const menu = await db.query.menu.findMany();
   if (!menu) {
     throw new Error("Menu information not found");
@@ -127,7 +121,7 @@ export const getMenu = async (): Promise<menu[]> => {
   return menu;
 }
 
-export const postMenu = async (menuInfo: Omit<menu, "id" | "createdAt" | "updatedAt">): Promise<menu> => {
+export const postMenu = async (menuInfo: Omit<schema.menu, "id" | "createdAt" | "updatedAt">): Promise<schema.menu> => {
   const menu = await db.insert(schema.menu).values(menuInfo).returning();
   if (!menu) {
     throw new Error("Menu information not found");
@@ -135,7 +129,7 @@ export const postMenu = async (menuInfo: Omit<menu, "id" | "createdAt" | "update
   return menu[0];
 }
 
-export const patchMenu = async (item: string, menuInfo: Partial<menu>): Promise<void> => {
+export const patchMenu = async (item: string, menuInfo: Partial<schema.menu>): Promise<void> => {
   await db.update(schema.menu)
     .set(menuInfo)
     .where(eq(schema.menu.item, item));

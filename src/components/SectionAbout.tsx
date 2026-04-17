@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function SectionAbout() {
+export default async function SectionAbout({ description }: { description: string }) {
   return (
     <section className="px-2 py-2 md:h-screen md:px-0" id="about">
       <div className="font-playfair items-centergrid grid h-full grid-rows-2 items-center md:grid-cols-10">
@@ -9,11 +9,7 @@ export default function SectionAbout() {
             WHO WE ARE
           </h2>
           <p className="text-muted-foreground border-primary border-b-2 border-dashed py-4">
-            At Buddy&apos;s WoodFire Pizza, we keep it simple and do it right.
-            Every pizza is hand-crafted and wood-fired for that perfect crispy,
-            chewy crust. We use fresh local ingredients and make our dough from
-            scratch daily because we love bringing people together over great
-            food.
+            {description}
           </p>
         </div>
         <div className="row-start-1 h-full overflow-hidden md:col-span-7 md:row-span-2">

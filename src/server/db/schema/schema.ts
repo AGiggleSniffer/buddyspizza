@@ -1,3 +1,4 @@
+import { InferSelectModel } from "drizzle-orm";
 import { pgTable, text, timestamp, integer } from "drizzle-orm/pg-core";
 
 export const time = pgTable("time", {
@@ -57,3 +58,10 @@ export const menu = pgTable("menu", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+
+export type about = InferSelectModel<typeof about>;
+export type time = InferSelectModel<typeof time>;
+export type contact = InferSelectModel<typeof contact>;
+export type address = InferSelectModel<typeof address>;
+export type menu = InferSelectModel<typeof menu>;

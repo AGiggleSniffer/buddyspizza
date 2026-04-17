@@ -5,8 +5,15 @@ import SectionMap from "@/components/SectionMap";
 import SectionAbout from "@/components/SectionAbout";
 import SectionContact from "@/components/SectionContact";
 import Footer from "@/components/Footer";
+import * as queries from "@/server/queries";
 
-export default function Home() {
+export default async function Home() {
+  const { email, insta, phone } = await queries.getContact();
+  const desc = await queries.getAbout();
+  const menuItems = await queries.getMenu();
+  const timeInfo = await queries.getTime();
+  const { name, mapsrc, location } = await queries.getAddress();
+
   return (
     <div className="bg-background text-foreground min-h-screen font-sans">
       <header className="fixed top-0 z-50 w-svw">
@@ -14,10 +21,10 @@ export default function Home() {
       </header>
       <main className="mx-auto w-full">
         <Hero />
-        <SectionMenu />
-        <SectionMap />
-        <SectionAbout />
-        <SectionContact />
+        <SectionMenu instagram={insta} items={menuItems} />
+        <SectionMap name={name} mapsrc={mapsrc} location={location} hours={timeInfo} phone={phone} />
+        <SectionAbout description={desc} />
+        <SectionContact email={email} instagram={insta} phone={phone} />
       </main>
       <Footer />
     </div>
