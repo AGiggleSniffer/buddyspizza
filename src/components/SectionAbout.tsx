@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-export default async function SectionAbout({ description }: { description: string }) {
+export default async function SectionAbout({
+  description,
+}: {
+  description: string;
+}) {
   return (
     <section className="px-2 py-2 md:h-screen md:px-0" id="about">
       <div className="font-playfair items-centergrid grid h-full grid-rows-2 items-center md:grid-cols-10">

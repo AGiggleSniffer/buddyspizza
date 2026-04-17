@@ -59,7 +59,6 @@ export const menu = pgTable("menu", {
     .notNull(),
 });
 
-
 export type about = InferSelectModel<typeof about>;
 export type time = InferSelectModel<typeof time>;
 export type contact = InferSelectModel<typeof contact>;

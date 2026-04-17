@@ -4,7 +4,15 @@ import { useState } from "react";
 import { Phone, Mail } from "lucide-react";
 import { LuInstagram } from "react-icons/lu";
 
-export default function SectionContact({email, instagram, phone}: {email: string, instagram: string, phone: string}) {
+export default function SectionContact({
+  email,
+  instagram,
+  phone,
+}: {
+  email: string;
+  instagram: string;
+  phone: string;
+}) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",

@@ -1,4 +1,5 @@
 import { Clock, MapPin, Phone } from "lucide-react";
+import { time } from "@/server/db/schema/schema";
 
 export default function SectionMap({
   name,
@@ -10,7 +11,7 @@ export default function SectionMap({
   name: string;
   mapsrc: string;
   location: string;
-  hours: { day: string; start: string; end: string }[];
+  hours: time[];
   phone: string;
 }) {
   return (
@@ -48,7 +49,9 @@ export default function SectionMap({
                 {hours.map((item, index) => (
                   <div key={index}>
                     <p className="text-muted-foreground">{item.day}:</p>
-                    <p className="text-muted-foreground">{item.start} - {item.end}</p>
+                    <p className="text-muted-foreground">
+                      {item.start} - {item.end}
+                    </p>
                     {index === hours.length - 1 ? "" : <br />}
                   </div>
                 ))}
