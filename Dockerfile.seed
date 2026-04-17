@@ -1,7 +1,25 @@
-FROM node:22-alpine
+FROM node:22-alpine AS deps
 WORKDIR /app
 RUN corepack enable pnpm
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
-COPY . .
-CMD ["pnpm", "run", "db:push", "&&", "pnpm", "run", "db:seed"]
+
+FROM node:22-alpine AS runner
+WORKDIR /app
+RUN corepack enable pnpm
+
+# copy installed node_modules from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+
+# copy package files so pnpm exec works and config/schema needed by drizzle
+COPY package.json pnpm-lock.yaml ./
+COPY drizzle.config.ts ./
+
+# copy only the schema and seed code required by drizzle push and the seeder
+COPY src/server/db/schema ./src/server/db/schema
+COPY src/server/db/seed ./src/server/db/seed
+
+# entrypoint script runs push then seed
+COPY ./scripts/docker-seed-entrypoint.sh /usr/local/bin/docker-seed-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-seed-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker-seed-entrypoint.sh"]

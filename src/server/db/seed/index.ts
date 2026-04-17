@@ -65,4 +65,6 @@ const queryData = async (table: PgTable) => {
   return false;
 };
 
+Seed();
+
 export default Seed;

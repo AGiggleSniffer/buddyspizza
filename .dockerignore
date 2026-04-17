@@ -1,0 +1,39 @@
+# VCS
+.git
+.gitignore
+
+# Node deps & package manager stores
+node_modules
+pnpm-store
+.pnpm-store
+.yarn
+.yarnrc
+.yarn-integrity
+
+# Build outputs & caches
+.next
+.next/*
+dist
+build
+.cache
+.vite
+coverage
+
+# Editor / OS files
+.vscode
+.idea
+.DS_Store
+*.swp
+
+# Env / logs
+.env
+.env.local
+.env.*.local
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+*.log
+
+# Misc
+*.tgz
+*.bak

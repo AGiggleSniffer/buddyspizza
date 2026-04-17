@@ -1,0 +1,16 @@
+services:
+  seed:
+    build:
+      context: .
+      dockerfile: Dockerfile.seed
+    environment:
+      DATABASE_URL: DATABASE_URL=postgres://myuser:mypassword@drizzle-db:5432/mydatabase
+    networks:
+      - shared-net
+    restart: "no"
+ 
+
+networks:
+  shared-net:
+    external: true
+    name: drizzle-db_shared-net
