@@ -5,10 +5,8 @@ import SectionMap from "@/components/SectionMap";
 import SectionAbout from "@/components/SectionAbout";
 import SectionContact from "@/components/SectionContact";
 import Footer from "@/components/Footer";
-import Seed from "@/server/db/seed";
 
 export default function Home() {
-  Seed();
   return (
     <div className="bg-background text-foreground min-h-screen font-sans">
       <header className="fixed top-0 z-50 w-svw">

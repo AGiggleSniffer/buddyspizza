@@ -10,7 +10,7 @@ export const HOURS = [
   // },
   {
     day: "Sundays",
-    start: '3pm',
+    start: "3pm",
     end: "8pm",
   },
 ];
@@ -19,7 +19,7 @@ export const INSTAGRAM = "buddyswoodfired";
 export const EMAIL = "test@gmail.com";
 
 export const ABOUT =
-  "At Buddy&apos;s WoodFire Pizza, we keep it simple and do it right. Every pizza is hand - crafted and wood - fired for that perfect crispy, chewy crust. We use fresh local ingredients and make our dough from scratch daily because we love bringing people together over great food."
+  "At Buddy&apos;s WoodFire Pizza, we keep it simple and do it right. Every pizza is hand - crafted and wood - fired for that perfect crispy, chewy crust. We use fresh local ingredients and make our dough from scratch daily because we love bringing people together over great food.";
 
 export const MENU_ITEMS = [
   {
