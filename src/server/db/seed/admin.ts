@@ -1,26 +1,26 @@
-import "dotenv/config"
-import { auth } from "../../auth";
+import "dotenv/config";
+import { auth } from "@/lib/auth";
 import { db } from "..";
 import { eq } from "drizzle-orm";
-import * as schema from "../schema/auth-schema"
+import * as schema from "../schema/auth-schema";
 
 const createAdminUser = async () => {
-    const admin = await db.query.user.findFirst({
-        where: eq(schema.user.name, "Admin")
-    });
+  const admin = await db.query.user.findFirst({
+    where: eq(schema.user.name, "Admin"),
+  });
 
-    if (admin) {
-        console.log("Admin already exists in the database. Skipping seeding.");
-        return;
-    }
+  if (admin) {
+    console.log("Admin already exists in the database. Skipping seeding.");
+    return;
+  }
 
-    await auth.api.signUpEmail({
-        body: {
-            email: process.env.ADMIN_EMAIL!,
-            password: process.env.ADMIN_PASSWORD!,
-            name: "Admin",
-        },
-    });
-}
+  await auth.api.signUpEmail({
+    body: {
+      email: process.env.ADMIN_EMAIL!,
+      password: process.env.ADMIN_PASSWORD!,
+      name: "Admin",
+    },
+  });
+};
 
 export default createAdminUser;

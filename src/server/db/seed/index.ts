@@ -54,7 +54,7 @@ async function Seed() {
       insta: config.INSTAGRAM,
     });
   }
-};
+}
 
 const queryData = async (table: PgTable) => {
   const data = await db.select().from(table).limit(1);

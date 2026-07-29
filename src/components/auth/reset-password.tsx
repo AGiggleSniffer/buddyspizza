@@ -12,6 +12,7 @@ import {
   FieldDescription,
   FieldError,
   FieldGroup,
+  FieldLabel,
 } from "@/components/ui/field";
 import {
   InputGroup,
@@ -21,7 +22,6 @@ import {
 } from "@/components/ui/input-group";
 import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
-import { Label } from "../ui/label";
 
 export type ResetPasswordProps = {
   className?: string;
@@ -36,6 +36,7 @@ export type ResetPasswordProps = {
  */
 export function ResetPassword({ className }: ResetPasswordProps) {
   const {
+    authClient,
     basePaths,
     emailAndPassword,
     localization,
@@ -44,8 +45,7 @@ export function ResetPassword({ className }: ResetPasswordProps) {
     Link,
   } = useAuth();
 
-  const { mutate: resetPassword, isPending } = useResetPassword({
-    onError: (error) => toast.error(error.error?.message || error.message),
+  const { mutate: resetPassword, isPending } = useResetPassword(authClient, {
     onSuccess: () => {
       toast.success(localization.auth.passwordResetSuccess);
       navigate({ to: `${basePaths.auth}/${viewPaths.auth.signIn}` });
@@ -112,7 +112,9 @@ export function ResetPassword({ className }: ResetPasswordProps) {
         <form onSubmit={handleSubmit}>
           <FieldGroup>
             <Field data-invalid={!!fieldErrors.password}>
-              <Label htmlFor="password">{localization.auth.password}</Label>
+              <FieldLabel htmlFor="password">
+                {localization.auth.password}
+              </FieldLabel>
 
               <InputGroup>
                 <InputGroupInput
@@ -133,11 +135,24 @@ export function ResetPassword({ className }: ResetPasswordProps) {
                   }}
                   onInvalid={(e) => {
                     e.preventDefault();
+                    const el = e.target as HTMLInputElement;
+                    const min = emailAndPassword?.minPasswordLength;
+                    const max = emailAndPassword?.maxPasswordLength;
+                    const msg = el.validity.valueMissing
+                      ? localization.auth.fieldRequired
+                      : el.validity.tooShort
+                        ? localization.auth.tooShort.replace(
+                            "{{min}}",
+                            String(min),
+                          )
+                        : localization.auth.tooLong.replace(
+                            "{{max}}",
+                            String(max),
+                          );
 
                     setFieldErrors((prev) => ({
                       ...prev,
-                      password: (e.target as HTMLInputElement)
-                        .validationMessage,
+                      password: msg,
                     }));
                   }}
                   aria-invalid={!!fieldErrors.password}
@@ -145,6 +160,7 @@ export function ResetPassword({ className }: ResetPasswordProps) {
 
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton
+                    size="icon-xs"
                     aria-label={
                       isPasswordVisible
                         ? localization.auth.hidePassword
@@ -156,7 +172,7 @@ export function ResetPassword({ className }: ResetPasswordProps) {
                         : localization.auth.showPassword
                     }
                     onClick={() => {
-                      setIsPasswordVisible(!isPasswordVisible);
+                      setIsPasswordVisible((visible) => !visible);
                     }}
                   >
                     {isPasswordVisible ? <EyeOff /> : <Eye />}
@@ -169,9 +185,9 @@ export function ResetPassword({ className }: ResetPasswordProps) {
 
             {emailAndPassword?.confirmPassword && (
               <Field data-invalid={!!fieldErrors.confirmPassword}>
-                <Label htmlFor="confirmPassword">
+                <FieldLabel htmlFor="confirmPassword">
                   {localization.auth.confirmPassword}
-                </Label>
+                </FieldLabel>
 
                 <InputGroup>
                   <InputGroupInput
@@ -192,11 +208,24 @@ export function ResetPassword({ className }: ResetPasswordProps) {
                     }}
                     onInvalid={(e) => {
                       e.preventDefault();
+                      const el = e.target as HTMLInputElement;
+                      const min = emailAndPassword?.minPasswordLength;
+                      const max = emailAndPassword?.maxPasswordLength;
+                      const msg = el.validity.valueMissing
+                        ? localization.auth.fieldRequired
+                        : el.validity.tooShort
+                          ? localization.auth.tooShort.replace(
+                              "{{min}}",
+                              String(min),
+                            )
+                          : localization.auth.tooLong.replace(
+                              "{{max}}",
+                              String(max),
+                            );
 
                       setFieldErrors((prev) => ({
                         ...prev,
-                        confirmPassword: (e.target as HTMLInputElement)
-                          .validationMessage,
+                        confirmPassword: msg,
                       }));
                     }}
                     aria-invalid={!!fieldErrors.confirmPassword}
@@ -204,6 +233,7 @@ export function ResetPassword({ className }: ResetPasswordProps) {
 
                   <InputGroupAddon align="inline-end">
                     <InputGroupButton
+                      size="icon-xs"
                       aria-label={
                         isConfirmPasswordVisible
                           ? localization.auth.hidePassword
@@ -215,7 +245,7 @@ export function ResetPassword({ className }: ResetPasswordProps) {
                           : localization.auth.showPassword
                       }
                       onClick={() => {
-                        setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+                        setIsConfirmPasswordVisible((visible) => !visible);
                       }}
                     >
                       {isConfirmPasswordVisible ? <EyeOff /> : <Eye />}

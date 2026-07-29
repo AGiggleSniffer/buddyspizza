@@ -1,13 +1,14 @@
 "use client";
 
-import { useAuthenticate } from "@better-auth-ui/react";
+import { useAuth, useAuthenticate } from "@better-auth-ui/react";
 import Link from "next/link";
 
 import { Spinner } from "@/components/ui/spinner";
+import AdminDashboard from "@/components/AdminPanel/AdminDashboard";
 
 export default function Dashboard() {
-  const { data: session } = useAuthenticate();
-  console.log("Session:", session);
+  const { authClient } = useAuth();
+  const { data: session } = useAuthenticate(authClient);
 
   if (!session) {
     return (
@@ -18,10 +19,11 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="my-auto flex flex-col items-center">
-      <h1 className="text-2xl">Hello, {session.user.email}</h1>
+    // <div className="my-auto flex flex-col items-center">
+    //   <h1 className="text-2xl">Hello, {session.user.email}</h1>
 
-      <Link href="/auth/sign-out">Sign Out</Link>
-    </div>
+    //   <Link href="/auth/sign-out">Sign Out</Link>
+    // </div>
+    <AdminDashboard />
   );
 }
