@@ -12,8 +12,10 @@ export default async function Home() {
   const { email, insta, phone } = await queries.getContact();
   const desc = await queries.getAbout();
   const menuItems = await queries.getMenu();
-  const timeInfo = await queries.getTime();
-
+  const timeInfo = (await queries.getTime()).sort(
+    (a: { id: number }, b: { id: number }) => a.id - b.id,
+  );
+  
   return (
     <div className="bg-background text-foreground min-h-screen font-sans">
       <header className="fixed top-0 z-50 w-svw">

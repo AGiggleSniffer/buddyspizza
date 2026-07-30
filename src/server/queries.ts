@@ -73,7 +73,11 @@ export const patchTime = async (
     where: eq(schema.time.day, day),
   });
   if (time) {
-    await db.update(schema.time).set(timeInfo).where(eq(schema.time.day, day));
+    await db.update(schema.time).set({
+      start: timeInfo.start,
+      end: timeInfo.end,
+      closed: timeInfo.closed
+    }).where(eq(schema.time.day, day));
   } else {
     throw new Error("Time information not found");
   }

@@ -46,15 +46,34 @@ export default function SectionMap({
               <Clock className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
               <div>
                 <p className="mb-2">Hours:</p>
-                {hours.map((item, index) => (
-                  <div key={index}>
-                    <p className="text-muted-foreground">{item.day}:</p>
-                    <p className="text-muted-foreground">
-                      {item.start} - {item.end}
-                    </p>
-                    {index === hours.length - 1 ? "" : <br />}
-                  </div>
-                ))}
+                {hours.map(
+                  (item, index) =>
+                    !item.closed && (
+                      <div key={index}>
+                        <p className="text-muted-foreground">{item.day}:</p>
+                        <p className="text-muted-foreground">
+                          {new Date(`2000-01-01T${item.start}`)
+                            .toLocaleTimeString("en-US", {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                            })
+                            .toLowerCase()
+                            .replace(" ", "")}{" "}
+                          -{" "}
+                          {new Date(`2000-01-01T${item.end}`)
+                            .toLocaleTimeString("en-US", {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                            })
+                            .toLowerCase()
+                            .replace(" ", "")}
+                        </p>
+                        {index === hours.length - 1 ? "" : <br />}
+                      </div>
+                    ),
+                )}
               </div>
             </div>
 

@@ -17,6 +17,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { BiMenu } from "react-icons/bi";
+import Logo from "./Logo";
 
 const links = [
   { name: "Home", href: "#home" },
@@ -102,11 +103,8 @@ export default function Navbar() {
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="fixed left-0 mx-10 flex flex-col font-serif font-bold tracking-wide">
-        <span className="text-primary font-playfair text-2xl">
-          Buddy&apos;s{" "}
-        </span>
-        <span className="italic">Woodfire Pizza</span>
+      <div className="fixed left-0 mx-10">
+        <Logo />
       </div>
 
       <NavigationMenuList className="hidden p-5 md:flex">

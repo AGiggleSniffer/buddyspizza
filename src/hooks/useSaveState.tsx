@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function useSaveState(): [
   state: "idle" | "saving" | "saved",
   trigger: (fn: () => Promise<response>) => Promise<void>,
-  response: response,
+  response: response | null,
 ] {
   const [state, setState] = useState<"idle" | "saving" | "saved">("idle");
   const [response, setResponse] = useState<response | null>(null);
@@ -14,10 +14,8 @@ export default function useSaveState(): [
     const res = await fn();
     if (!res.success) {
       setResponse(res);
-    } else {
-      setResponse({ success: true });
     }
-    
+
     setState("saved");
     setTimeout(() => setState("idle"), 1600);
   };

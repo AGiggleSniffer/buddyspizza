@@ -3,15 +3,15 @@ import { deleteMenu, patchAbout, patchAddress, patchContact, patchMenu, patchTim
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
-import z from "zod";
-import { contact } from "@/server/db/schema/schema";
+import z, { ZodError } from "zod";
+import { contact, time } from "@/server/db/schema/schema";
 
 
 const AboutSchema = z.string().trim().min(10).max(2000);
 const ContactSchema = z.object({
-    phone: z.string().min(7),
+    phone: z.string().min(17).max(17),
     email: z.email(),
-    insta: z.string().optional(),
+    insta: z.string().min(3).max(30),
 });
 const AddressSchema = z.object({
     street: z.string().min(1),
@@ -21,15 +21,15 @@ const AddressSchema = z.object({
 });
 const TimeSchema = z.object({
     day: z.string(),
-    open: z.string(),
-    close: z.string(),
+    start: z.string().min(5).max(5),
+    end: z.string().min(5).max(5),
     closed: z.boolean(),
 });
 const MenuItemSchema = z.object({
     item: z.string().min(1),
     price: z.string(),
     category: z.string().min(1),
-    description: z.string().default(""),
+    description: z.string(),
 });
 
 
@@ -43,25 +43,38 @@ export async function requireAdmin() {
 
 export type response = {
     success: boolean;
-    error?: string;
+    errorMsg?: string;
 }
 
 export async function updateAbout(description: string): Promise<response> {
     await requireAdmin();
     const parsed = AboutSchema.safeParse(description);
+
     if (!parsed.success) {
-        return { success: false, error: parsed.error.message };
+        return {
+            success: parsed.success,
+            errorMsg: z.prettifyError(parsed.error)
+        };
     }
+
     await patchAbout(parsed.data);
     revalidatePath("/dashboard");
-    return { success: true };
+    return { success: parsed.success };
 }
 
 export async function updateContact(contact: contact): Promise<response> {
     await requireAdmin();
-    const parsed = ContactSchema.safeParse(contact);
+    const parsed = ContactSchema.safeParse({
+        ...contact,
+        phone: `+1 ${contact.phone}`
+    });
+
     if (!parsed.success) {
-        return { success: false, error: parsed.error.message };
+        console.log(z.prettifyError(parsed.error))
+        return {
+            success: parsed.success,
+            errorMsg: z.prettifyError(parsed.error)
+        };
     }
     await patchContact(parsed.data);
     revalidatePath("/dashboard");
@@ -72,18 +85,27 @@ export async function updateAddress(address: unknown): Promise<response> {
     await requireAdmin();
     const parsed = AddressSchema.safeParse(address);
     if (!parsed.success) {
-        return { success: false, error: parsed.error.message };
+        return {
+            success: parsed.success,
+            errorMsg: z.prettifyError(parsed.error)
+        };
     }
     await patchAddress(parsed.data);
     revalidatePath("/dashboard");
     return { success: true };
 }
 
-export async function updateTime(time: unknown): Promise<response> {
+export async function updateTime(day: string, time: time): Promise<response> {
     await requireAdmin();
+    console.log(time)
     const parsed = TimeSchema.partial().safeParse(time);
     if (!parsed.success) {
-        return { success: false, error: parsed.error.message };
+        console.log(time)
+        console.log(parsed)
+        return {
+            success: parsed.success,
+            errorMsg: z.prettifyError(parsed.error)
+        };
     }
     await patchTime(day, parsed.data);
     revalidatePath("/dashboard");
@@ -94,7 +116,10 @@ export async function addMenuItem(item: unknown): Promise<response> {
     await requireAdmin();
     const parsed = MenuItemSchema.safeParse(item);
     if (!parsed.success) {
-        return { success: false, error: parsed.error.message };
+        return {
+            success: parsed.success,
+            errorMsg: z.treeifyError(parsed.error).errors
+        };
     }
     await postMenu(parsed.data);
     revalidatePath("/dashboard");
@@ -105,7 +130,10 @@ export async function updateMenuItem(originalItem: string, item: unknown): Promi
     await requireAdmin();
     const parsed = MenuItemSchema.safeParse(item);
     if (!parsed.success) {
-        return { success: false, error: parsed.error.message };
+        return {
+            success: parsed.success,
+            errorMsg: z.treeifyError(parsed.error).errors
+        };
     }
     await patchMenu(originalItem, parsed.data);
     revalidatePath("/dashboard");

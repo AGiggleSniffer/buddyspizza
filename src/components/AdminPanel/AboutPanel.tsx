@@ -14,6 +14,7 @@ import { useState } from "react";
 import useSaveState from "@/hooks/useSaveState";
 import SaveButton from "./SaveButton";
 import { response } from "@/app/dashboard/actions";
+import ErrorMessage from "./ErrorMessage";
 
 export default function AboutPanel({
   initialDescription,
@@ -23,8 +24,7 @@ export default function AboutPanel({
   saveAbout: (desc: string) => Promise<response>;
 }) {
   const [description, setDescription] = useState(initialDescription);
-  const [saveState, save, error] = useSaveState();
-  console.log(error);
+  const [saveState, save, res] = useSaveState();
 
   return (
     <Card>
@@ -36,11 +36,9 @@ export default function AboutPanel({
       </CardHeader>
       <CardContent className="space-y-1.5">
         <Label htmlFor="about-desc">Description</Label>
-        {error && (
-          <p className="text-destructive text-sm">
-            {error}
-          </p>
-        )}
+
+        <ErrorMessage res={res} />
+
         <Textarea
           id="about-desc"
           rows={6}

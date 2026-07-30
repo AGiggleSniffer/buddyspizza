@@ -1,11 +1,12 @@
 import { InferSelectModel } from "drizzle-orm";
-import { pgTable, text, timestamp, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer, time as timetype, boolean } from "drizzle-orm/pg-core";
 
 export const time = pgTable("time", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   day: text("day").notNull().unique(),
-  start: text("start").notNull(),
-  end: text("end").notNull(),
+  start: timetype({ precision: 0 }).notNull().default("00:00"),
+  end: timetype({ precision: 0 }).notNull().default("00:00"),
+  closed: boolean().default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()

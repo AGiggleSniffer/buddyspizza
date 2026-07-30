@@ -18,7 +18,7 @@ export default function SaveButton({
       onClick={onClick}
       disabled={state === "saving"}
       size={size}
-      className="bg-teal-700 hover:bg-teal-800"
+      className="cursor-pointer"
     >
       {state === "saving" && <Loader2 className="h-4 w-4 animate-spin" />}
       {state === "saved" && <Check className="h-4 w-4" />}
