@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     useTypeScriptCli: true,
   },
   output: "standalone",
+  allowedDevOrigins: ['staging.agiggletech.win'],
 };
 
 export default nextConfig;

@@ -1,29 +1,55 @@
-"use client";
+import {
+  getAbout,
+  getAddress,
+  getContact,
+  getMenu,
+  getTime,
+} from "@/server/queries";
+import { getQueryClient } from "@/lib/query-client";
+import { ensureSession } from "@better-auth-ui/react/server";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { addMenuItem, removeMenuItem, updateAbout, updateAddress, updateContact, updateMenuItem, updateTime } from "./actions";
+import AdminDashboardClient from "@/components/AdminPanel/AdminDashboardClient";
 
-import { useAuth, useAuthenticate } from "@better-auth-ui/react";
-import Link from "next/link";
-
-import { Spinner } from "@/components/ui/spinner";
-import AdminDashboard from "@/components/AdminPanel/AdminDashboard";
-
-export default function Dashboard() {
-  const { authClient } = useAuth();
-  const { data: session } = useAuthenticate(authClient);
+export default async function AdminPage() {
+  const queryClient = getQueryClient();
+  const session = await ensureSession(queryClient, auth, {
+    headers: await headers(),
+  });
 
   if (!session) {
-    return (
-      <div className="my-auto flex justify-center">
-        <Spinner color="current" />
-      </div>
-    );
+    redirect("/auth/sign-in?redirectTo=/dashboard");
   }
 
-  return (
-    // <div className="my-auto flex flex-col items-center">
-    //   <h1 className="text-2xl">Hello, {session.user.email}</h1>
+  const [about, contact, address, time, menu] = await Promise.all([
+    getAbout(),
+    getContact(),
+    getAddress(),
+    getTime(),
+    getMenu(),
+  ]);
 
-    //   <Link href="/auth/sign-out">Sign Out</Link>
-    // </div>
-    <AdminDashboard />
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <AdminDashboardClient
+        initialAbout={about}
+        initialContact={contact}
+        initialAddress={address}
+        initialTime={time}
+        initialMenu={menu}
+        actions={{
+          updateAbout,
+          updateContact,
+          updateAddress,
+          updateTime,
+          addMenuItem,
+          updateMenuItem,
+          removeMenuItem,
+        }}
+      />
+    </HydrationBoundary>
   );
 }

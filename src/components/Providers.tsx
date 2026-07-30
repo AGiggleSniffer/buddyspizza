@@ -17,15 +17,12 @@ export function Providers({ children }: { children: ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <AuthProvider
         authClient={authClient}
-        redirectTo="/settings/account"
-        socialProviders={["google", "github"]}
         navigate={({ to, replace }: { to: string; replace?: boolean }) =>
           replace ? router.replace(to) : router.push(to)
         }
         Link={Link}
       >
         {children}
-
         <Toaster />
       </AuthProvider>
     </QueryClientProvider>

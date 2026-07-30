@@ -10,4 +10,5 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  trustedOrigins: ["https://staging.agiggletech.win"],
 });

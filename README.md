@@ -6,6 +6,8 @@ Pizza website to show the location and menu
 
 This repo contains a docker image to easily host anywhere just run:
 
+(*You will still need a database connection*)
+
 ```
 # bash
 docker build -t next-site . && docker run -p 4080:4080 --rm next-site
@@ -29,8 +31,10 @@ services:
 
 ```
 # bash
-docker compose up
+docker compose up -d
 ```
+
+A full example is located at [docker-compose.example.yml](./docker-compose.example.yml) which includes the seeding dockerfile to seed the database in production and a setup for postgres
 
 ## Develop
 
@@ -43,8 +47,29 @@ docker compose up
 pnpm install
 ```
 
+3. Run Postgres server
+
+```
+# bash
+pnpm db:up
+```
+
+4. Seed Postgres
+
+```
+# bash
+pnpm db:push && pnpm db:seed
+```
+
+  - Optionally you can run the seeder for a test admin user
+
+```
+# bash
+pnpm tsx ./src/server/db/seed/admin.ts
+```
+
 3. Compile changes
-   - This will run the linter and formatter as well.
+  - This will run the linter and formatter as well.
 
 ```
 # bash

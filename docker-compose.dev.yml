@@ -1,16 +1,16 @@
 name: drizzle-db
 
 services:
-  drizzle-db:
+  drizzle-db-dev:
     image: postgres:15-alpine
-    container_name: drizzle-db
+    container_name: drizzle-db-dev
     restart: always
     environment:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
       - POSTGRES_DB=mydatabase
     ports:
-      - "5432:5432"
+      - "5433:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
       interval: 5s

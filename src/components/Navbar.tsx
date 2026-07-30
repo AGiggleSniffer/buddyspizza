@@ -66,7 +66,7 @@ export default function Navbar() {
           <span className="text-muted-foreground text-sm tracking-normal md:hidden">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span>{name}</span>
+          <span className="">{name}</span>
         </Link>
       </NavigationMenuLink>
     </NavigationMenuItem>
@@ -103,7 +103,9 @@ export default function Navbar() {
       }`}
     >
       <div className="fixed left-0 mx-10 flex flex-col font-serif font-bold tracking-wide">
-        <span className="text-primary font-playfair">Buddy&apos;s </span>
+        <span className="text-primary font-playfair text-2xl">
+          Buddy&apos;s{" "}
+        </span>
         <span className="italic">Woodfire Pizza</span>
       </div>
 
