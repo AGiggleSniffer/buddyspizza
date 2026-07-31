@@ -19,7 +19,7 @@ COPY drizzle.config.ts ./
 COPY tsconfig.json ./
 
 # copy only the schema and seed code required by drizzle push and the seeder
-COPY src/server ./src/server
+COPY ./src/server ./src/lib
 
 # entrypoint script runs push then seed
 COPY ./scripts/docker-seed-entrypoint.sh /usr/local/bin/docker-seed-entrypoint.sh
