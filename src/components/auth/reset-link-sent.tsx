@@ -36,6 +36,7 @@ export function ResetLinkSent({ className }: ResetLinkSentProps) {
   );
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEmail(sessionStorage.getItem(RESET_LINK_SENT_STORAGE_KEY) ?? "");
   }, []);
 

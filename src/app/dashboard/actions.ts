@@ -13,7 +13,6 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import z from "zod";
 import { contact, menu, time } from "@/server/db/schema/schema";
-import { builtinModules } from "node:module";
 
 const AboutSchema = z.string().trim().min(10).max(2000);
 const ContactSchema = z.object({
@@ -37,8 +36,8 @@ const TimeSchema = z.object({
 });
 const MenuItemSchema = z.object({
   item: z.string().min(1),
-  price: z.string(),
-  description: z.string(),
+  price: z.int(),
+  description: z.string().min(1),
 });
 
 export async function requireAdmin() {
@@ -120,15 +119,19 @@ export async function updateTime(day: string, time: time): Promise<response> {
   return { success: true };
 }
 
-export async function addMenuItem(item: Omit<menu, "id" | "createdAt" | "UpdatedAt">): Promise<response> {
+export async function addMenuItem(
+  item: Omit<menu, "id" | "createdAt" | "updatedAt">,
+): Promise<response> {
   await requireAdmin();
-  const parsed = MenuItemSchema.safeParse(item);
+
+  const parsed = MenuItemSchema.safeParse({ ...item, price: item.price || 0 });
   if (!parsed.success) {
     return {
       success: parsed.success,
       errorMsg: z.prettifyError(parsed.error),
     };
   }
+
   await postMenu(parsed.data);
   revalidatePath("/dashboard");
   return { success: true };
@@ -136,10 +139,10 @@ export async function addMenuItem(item: Omit<menu, "id" | "createdAt" | "Updated
 
 export async function updateMenuItem(
   originalItem: string,
-  item: unknown,
+  item: Omit<menu, "id" | "createdAt" | "updatedAt">,
 ): Promise<response> {
   await requireAdmin();
-  const parsed = MenuItemSchema.safeParse(item);
+  const parsed = MenuItemSchema.safeParse({ ...item, price: item.price || 0 });
   if (!parsed.success) {
     return {
       success: parsed.success,

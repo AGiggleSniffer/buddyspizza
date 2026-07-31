@@ -61,7 +61,7 @@ export const contact = pgTable("contact", {
 export const menu = pgTable("menu", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   item: text("item").notNull(),
-  price: text("price").notNull(),
+  price: integer("price").notNull(),
   description: text("description").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")

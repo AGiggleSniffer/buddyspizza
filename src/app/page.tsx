@@ -7,6 +7,8 @@ import SectionContact from "@/components/SectionContact";
 import Footer from "@/components/Footer";
 import * as queries from "@/server/queries";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [desc, { email, insta, phone }, address, time, menuItems] =
     await Promise.all([

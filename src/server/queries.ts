@@ -73,10 +73,7 @@ export const patchTime = async (
     where: eq(schema.time.day, day),
   });
   if (time) {
-    await db
-      .update(schema.time)
-      .set(timeInfo)
-      .where(eq(schema.time.day, day));
+    await db.update(schema.time).set(timeInfo).where(eq(schema.time.day, day));
   } else {
     throw new Error("Time information not found");
   }
@@ -147,7 +144,7 @@ export const postMenu = async (
 
 export const patchMenu = async (
   item: string,
-  menuInfo: Partial<schema.menu>,
+  menuInfo: Omit<schema.menu, "id" | "createdAt" | "updatedAt">,
 ): Promise<void> => {
   await db.update(schema.menu).set(menuInfo).where(eq(schema.menu.item, item));
 };

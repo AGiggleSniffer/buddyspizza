@@ -7,9 +7,9 @@ export default function Hero() {
       id="home"
     >
       <div className="absolute min-h-screen min-w-screen bg-[url(/heropizza.jpg)] bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/60 bg-gradient-to-r from-black/75 via-black/45 to-black/10" />
       </div>
-      <div className="z-10 col-span-7 col-start-2 flex flex-col items-center justify-center md:items-baseline">
+      <div className="z-10 col-span-7 col-start-2 flex flex-col items-center justify-center text-shadow-2xs md:items-baseline">
         <h1 className="text-3xl leading-tight font-extrabold text-white md:text-5xl lg:text-7xl">
           Authentic Italian
         </h1>
@@ -37,7 +37,7 @@ export default function Hero() {
             <Button
               variant="outline"
               size="lg"
-              className="cursor-pointer p-6 font-bold shadow-xl"
+              className="cursor-pointer p-6 font-bold shadow-xl backdrop-blur-sm"
             >
               Find Where We Are!
             </Button>

@@ -43,7 +43,7 @@ export function ForgotPassword({ className }: ForgotPasswordProps) {
     basePaths,
     localization,
     navigate,
-    plugins,
+    // plugins,
     viewPaths,
     Link,
   } = useAuth();

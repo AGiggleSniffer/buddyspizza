@@ -75,7 +75,7 @@ export function SignUp({
     basePaths,
     emailAndPassword,
     localization,
-    plugins,
+    // plugins,
     redirectTo,
     socialProviders,
     viewPaths,

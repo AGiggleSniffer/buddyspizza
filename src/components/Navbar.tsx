@@ -7,7 +7,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
-import ModeToggle from "@/components/ModeToggle";
 import { useEffect, useState } from "react";
 import {
   Sheet,
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/sheet";
 import { BiMenu } from "react-icons/bi";
 import Logo from "./Logo";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { name: "Home", href: "#home" },
@@ -62,7 +62,7 @@ export default function Navbar() {
       >
         <Link
           href={href}
-          className="after:bg-primary dark:hover:bg-muted/70 font-playfair hover:text-primary relative flex justify-between bg-transparent py-8 tracking-widest uppercase after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full md:py-0"
+          className="after:bg-primary dark:hover:bg-muted/70 hover:text-primary relative flex justify-between bg-transparent py-8 font-serif tracking-widest uppercase after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:transition-all after:content-[''] hover:after:w-full md:py-0"
         >
           <span className="text-muted-foreground text-sm tracking-normal md:hidden">
             {String(index + 1).padStart(2, "0")}
@@ -113,7 +113,8 @@ export default function Navbar() {
 
       <div className="bg-primary hidden h-4 w-px md:flex" />
 
-      <ModeToggle />
+      {/* <ModeToggle /> */}
+      <ThemeToggle />
 
       <Sheet>
         <SheetTrigger className="p-5 md:hidden">

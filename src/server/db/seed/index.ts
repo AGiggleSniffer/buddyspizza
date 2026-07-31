@@ -21,7 +21,7 @@ async function Seed() {
   } else {
     const menuItems = config.MENU_ITEMS.map((item) => ({
       item: item.name,
-      price: item.price,
+      price: +item.price,
       description: item.description,
     }));
     await db.insert(schema.menu).values(menuItems);

@@ -49,6 +49,7 @@ export function VerifyEmail({ className }: VerifyEmailProps) {
   const [cooldown, setCooldown] = useState(RESEND_COOLDOWN_SECONDS);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEmail(sessionStorage.getItem("better-auth-ui.verify-email") ?? "");
   }, []);
 

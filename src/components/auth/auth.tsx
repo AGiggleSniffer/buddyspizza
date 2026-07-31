@@ -67,8 +67,7 @@ export function Auth({
   socialPosition,
   view,
 }: AuthProps) {
-  const { basePaths, emailAndPassword, plugins, viewPaths, navigate } =
-    useAuth();
+  const { basePaths, emailAndPassword, viewPaths, navigate } = useAuth();
 
   if (!view && !path) {
     throw new Error(

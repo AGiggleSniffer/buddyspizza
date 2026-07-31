@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Trash2, Pencil } from "lucide-react";
+import { Plus, Pencil } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,13 +24,18 @@ import { menu } from "@/server/db/schema/schema";
 import { response } from "@/app/dashboard/actions";
 import useSaveState from "@/hooks/useSaveState";
 import SaveButton from "./SaveButton";
+import ErrorMessage from "./ErrorMessage";
+import DeleteMenuItemButton from "./DeleteMenuItemButton";
 
 interface props {
   initialMenu: menu[];
   addMenuItem: (
     item: Omit<menu, "id" | "createdAt" | "updatedAt">,
   ) => Promise<response>;
-  updateMenuItem: (originalItem: string, item: menu) => Promise<response>;
+  updateMenuItem: (
+    originalItem: string,
+    item: Omit<menu, "id" | "createdAt" | "updatedAt">,
+  ) => Promise<response>;
   removeMenuItem: (item: string) => Promise<response>;
 }
 
@@ -40,8 +45,13 @@ export default function MenuPanel({
   updateMenuItem,
   removeMenuItem,
 }: props) {
-  const { item, description, price } = initialMenu;
-  const [menu, setMenu] = useState({ item, description, price });
+  const [menu, setMenu] = useState(
+    initialMenu.map(({ description, price, item }) => ({
+      description,
+      price,
+      item,
+    })),
+  );
   const [editingIdx, setEditingIdx] = useState<number | null>(null);
   const [draft, setDraft] = useState<Omit<
     menu,
@@ -50,7 +60,7 @@ export default function MenuPanel({
   const [saveState, save, err] = useSaveState();
 
   const startAdd = () => {
-    setDraft({ item: "", price: "0", description: "" });
+    setDraft({ item: "", price: 0, description: "" });
     setEditingIdx(-1);
   };
   const startEdit = (idx: number) => {
@@ -61,24 +71,23 @@ export default function MenuPanel({
     setDraft(null);
     setEditingIdx(null);
   };
-  const remove = (idx: number) => {
-    // setMenu((m) => m.filter((_, i) => i !== idx));
-  };
 
   const commit = async () => {
-    await save(async () => {
+    if (!draft) throw new Error("Something went wrong");
+    if (draft.item.length === 0 || draft.description.length === 0) {
+      return cancel();
+    }
+
+    await save(() => {
       if (editingIdx === -1) {
         setMenu((m) => [...m, draft]);
+        return addMenuItem(draft);
       } else {
         setMenu((m) => m.map((row, i) => (i === editingIdx ? draft : row)));
+        return updateMenuItem(draft.item, draft);
       }
-
-      if (!draft) {
-        throw new Error("Something went wrong");
-      }
-
-      return addMenuItem(draft);
     });
+
     cancel();
   };
 
@@ -144,19 +153,22 @@ export default function MenuPanel({
           <TableHeader>
             <TableRow>
               <TableHead>Item</TableHead>
-              {/* <TableHead>Category</TableHead> */}
               {/* <TableHead>Price</TableHead> */}
               <TableHead>Description</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="">
             {menu.map((row, idx) => (
               <TableRow key={row.item + idx}>
                 <TableCell className="font-medium">{row.item}</TableCell>
                 {/* <TableCell className="font-mono">${row.price}</TableCell> */}
                 <TableCell className="text-muted-foreground">
-                  {row.description}
+                  <div className="flex">
+                    <div className="max-w-100 overflow-x-auto py-4 whitespace-nowrap">
+                      {row.description}
+                    </div>
+                  </div>
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-1">
@@ -168,15 +180,16 @@ export default function MenuPanel({
                     >
                       <Pencil className="h-3.5 w-3.5" />
                     </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => remove(idx)}
-                      aria-label={`Delete ${row.item}`}
-                      className="hover:bg-red-50 hover:text-red-600"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </Button>
+                    <DeleteMenuItemButton
+                      item={row.item}
+                      onDelete={() => {
+                        setMenu((m) => m.filter((_, i) => i !== idx));
+                        const rmMenu = menu.find((_, i) => i === idx);
+
+                        if (rmMenu) return removeMenuItem(rmMenu.item);
+                        else throw new Error("Something went wrong");
+                      }}
+                    />
                   </div>
                 </TableCell>
               </TableRow>
@@ -193,6 +206,7 @@ export default function MenuPanel({
             )}
           </TableBody>
         </Table>
+        <ErrorMessage res={err} />
       </CardContent>
     </Card>
   );

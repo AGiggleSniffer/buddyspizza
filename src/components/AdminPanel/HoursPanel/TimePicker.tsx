@@ -21,7 +21,7 @@ export function TimePicker({
   value,
   onChange,
   day,
-  disabled,
+  // disabled,
 }: TimePickerProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 

@@ -10,7 +10,7 @@
     "start": "next start -p 4080",
     "update": "next upgrade",
     "db:up": "sudo docker compose -f ./docker-compose.dev.yml up",
-    "db:push": "drizzle-kit push",
+    "db:push": "drizzle-kit push --force",
     "db:studio": "drizzle-kit studio",
     "db:seed": "pnpm run db:push && pnpm tsx ./src/server/db/seed/index.ts"
   },

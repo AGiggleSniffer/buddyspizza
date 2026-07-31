@@ -63,7 +63,9 @@ export default function HoursPanel({
     <Card>
       <CardHeader>
         <CardTitle>Hours</CardTitle>
-        <CardDescription>Open and close times by day. (closed days will not be shown)</CardDescription>
+        <CardDescription>
+          Open and close times by day. (closed days will not be shown)
+        </CardDescription>
       </CardHeader>
       <CardContent className="">
         <Table>

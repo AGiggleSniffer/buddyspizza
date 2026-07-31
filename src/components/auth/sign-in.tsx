@@ -59,7 +59,7 @@ export function SignIn({
     basePaths,
     emailAndPassword,
     localization,
-    plugins,
+    // plugins,
     socialProviders,
     viewPaths,
     navigate,

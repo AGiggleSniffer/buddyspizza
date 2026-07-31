@@ -33,7 +33,7 @@ export default async function SectionMenu({
                   </span>
                   {item.item}
                 </p>
-                {/* <p>{item.price}</p> */}
+                {/* <p>${item.price}</p> */}
               </div>
             </AccordionTrigger>
             <AccordionContent>{item.description}</AccordionContent>

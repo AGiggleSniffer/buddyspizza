@@ -37,9 +37,16 @@ export default function AdminDashboardClient({
     updateContact: (contact: contact) => Promise<response>;
     updateAddress: (address: address) => Promise<response>;
     updateTime: (day: string, time: time) => Promise<response>;
-    addMenuItem: (item: menu) => Promise<response>;
-    updateMenuItem: (originalItem: string, item: menu) => Promise<response>;
     removeMenuItem: (item: string) => Promise<response>;
+
+    addMenuItem: (
+      item: Omit<menu, "id" | "createdAt" | "updatedAt">,
+    ) => Promise<response>;
+
+    updateMenuItem: (
+      originalItem: string,
+      item: Omit<menu, "id" | "createdAt" | "updatedAt">,
+    ) => Promise<response>;
   };
 }) {
   const [active, setActive] = useState<
