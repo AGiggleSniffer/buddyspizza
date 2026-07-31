@@ -14,7 +14,7 @@ RUN corepack enable pnpm
 COPY --from=deps /app/node_modules ./node_modules
 
 # copy package files so pnpm exec works and config/schema needed by drizzle
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY drizzle.config.ts ./
 COPY tsconfig.json ./
 
