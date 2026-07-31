@@ -17,7 +17,12 @@ interface TimePickerProps {
   onChange: (day: string, patch: string) => void;
 }
 
-export function TimePicker({ value, onChange, day, disabled }: TimePickerProps) {
+export function TimePicker({
+  value,
+  onChange,
+  day,
+  disabled,
+}: TimePickerProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   // Extract current hours and minutes from the value string

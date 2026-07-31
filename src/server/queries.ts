@@ -40,7 +40,7 @@ export const getContact = async (): Promise<schema.contact> => {
 };
 
 export const patchContact = async (
-  contactInfo: Partial<schema.contact>,
+  contactInfo: Omit<schema.contact, "id" | "createdAt" | "updatedAt">,
 ): Promise<void> => {
   const contact = await db.query.contact.findFirst();
   if (contact) {
@@ -67,17 +67,16 @@ export const getTime = async (): Promise<schema.time[]> => {
 
 export const patchTime = async (
   day: string,
-  timeInfo: Partial<schema.time>,
+  timeInfo: Omit<schema.time, "id" | "createdAt" | "updatedAt">,
 ): Promise<void> => {
   const time = await db.query.time.findFirst({
     where: eq(schema.time.day, day),
   });
   if (time) {
-    await db.update(schema.time).set({
-      start: timeInfo.start,
-      end: timeInfo.end,
-      closed: timeInfo.closed
-    }).where(eq(schema.time.day, day));
+    await db
+      .update(schema.time)
+      .set(timeInfo)
+      .where(eq(schema.time.day, day));
   } else {
     throw new Error("Time information not found");
   }
@@ -103,6 +102,7 @@ export const postTime = async (
 
 export const getAddress = async (): Promise<schema.address> => {
   const address = await db.query.address.findFirst();
+  // console.log(address)
   if (!address) {
     throw new Error("Address information not found");
   }
@@ -110,7 +110,7 @@ export const getAddress = async (): Promise<schema.address> => {
 };
 
 export const patchAddress = async (
-  addressInfo: Partial<schema.address>,
+  addressInfo: Omit<schema.address, "id" | "createdAt" | "updatedAt">,
 ): Promise<void> => {
   const address = await db.query.address.findFirst();
   if (address) {

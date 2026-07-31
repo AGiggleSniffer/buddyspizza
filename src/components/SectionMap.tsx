@@ -1,16 +1,12 @@
 import { Clock, MapPin, Phone } from "lucide-react";
-import { time } from "@/server/db/schema/schema";
+import { address, time } from "@/server/db/schema/schema";
 
 export default function SectionMap({
-  name,
-  mapsrc,
-  location,
+  address,
   hours,
   phone,
 }: {
-  name: string;
-  mapsrc: string;
-  location: string;
+  address: address;
   hours: time[];
   phone: string;
 }) {
@@ -19,7 +15,7 @@ export default function SectionMap({
       <div className="grid h-full grid-rows-2 items-center md:grid-cols-10">
         <div className="h-full overflow-hidden md:col-span-7 md:row-span-2">
           <iframe
-            src={mapsrc}
+            src={address.mapsrc}
             className="h-full w-full"
             width="600"
             height="450"
@@ -35,15 +31,17 @@ export default function SectionMap({
           </h2>
           <div className="space-y-6 py-4">
             <div className="flex gap-4">
-              <MapPin className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <MapPin className="text-primary mt-1 h-6 w-6 shrink-0" />
               <div>
-                <p className="mb-1">{name}</p>
-                <p className="text-muted-foreground">{location}</p>
+                <p className="mb-1">{address.name}</p>
+                <p className="text-muted-foreground">
+                  {`${address.street}, ${address.city}, ${address.stateCode} ${address.zip}`}
+                </p>
               </div>
             </div>
 
             <div className="flex gap-4">
-              <Clock className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <Clock className="text-primary mt-1 h-6 w-6 shrink-0" />
               <div>
                 <p className="mb-2">Hours:</p>
                 {hours.map(
@@ -78,7 +76,7 @@ export default function SectionMap({
             </div>
 
             <div className="border-primary flex gap-4 border-b-2 border-dashed pb-4">
-              <Phone className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <Phone className="text-primary mt-1 h-6 w-6 shrink-0" />
               <div>
                 <p className="mb-1">{phone}</p>
               </div>

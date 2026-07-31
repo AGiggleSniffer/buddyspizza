@@ -9,7 +9,7 @@ export default function SaveButton({
   size,
 }: {
   state: "idle" | "saving" | "saved";
-    onClick: () => Promise<void>;
+  onClick: () => Promise<void>;
   label?: string;
   size?: "default" | "sm";
 }) {

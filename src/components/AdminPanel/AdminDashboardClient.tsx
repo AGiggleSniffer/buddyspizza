@@ -1,13 +1,15 @@
 "use client";
-import { JSX, useState } from "react";
+import { useState } from "react";
 import type { menu, contact, address, time } from "@/server/db/schema/schema";
-import AboutPanel from "./AboutPanel";
 import { Info, Phone, Clock, MapPin, UtensilsCrossed } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ContactPanel from "./ContactPanel";
 import { response } from "@/app/dashboard/actions";
 import Logo from "../Logo";
+import ContactPanel from "./ContactPanel";
 import HoursPanel from "./HoursPanel/HoursPanel";
+import AboutPanel from "./AboutPanel";
+import AddressPanel from "./AddressPanel";
+import MenuPanel from "./MenuPanel";
 
 const NAV = [
   { key: "about", label: "About", icon: Info },
@@ -57,11 +59,23 @@ export default function AdminDashboardClient({
         saveContact={actions.updateContact}
       />
     ),
-    address: <div />,
+    address: (
+      <AddressPanel
+        initialAddress={initialAddress}
+        saveAddress={actions.updateAddress}
+      />
+    ),
     hours: (
       <HoursPanel initialTime={initialTime} saveTime={actions.updateTime} />
     ),
-    menu: <div />,
+    menu: (
+      <MenuPanel
+        initialMenu={initialMenu}
+        addMenuItem={actions.addMenuItem}
+        updateMenuItem={actions.updateMenuItem}
+        removeMenuItem={actions.removeMenuItem}
+      />
+    ),
   };
 
   return (

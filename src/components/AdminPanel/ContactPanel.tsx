@@ -40,7 +40,6 @@ export default function ContactPanel({
   const updatePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContact((c) => ({ ...c, phone: formatPhoneNumber(e.target.value) }));
   };
-  console.log(res);
 
   return (
     <Card>

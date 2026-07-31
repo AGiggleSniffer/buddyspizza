@@ -1,7 +1,12 @@
-export const ADDRESS = "1443 Fulton Ave, Sacramento, CA 95825";
-export const ADDRESS_NAME = "Firefly Lounge";
-export const GOOGLE_MAPS_SRC =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6236.94014556288!2d-121.40467302365303!3d38.59204946466265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ada4aed7d81db%3A0x4cb3462b68159820!2sFirefly%20Lounge!5e0!3m2!1sen!2sus!4v1766071035428!5m2!1sen!2sus";
+export const ADDRESS = {
+  mapsrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6236.94014556288!2d-121.40467302365303!3d38.59204946466265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ada4aed7d81db%3A0x4cb3462b68159820!2sFirefly%20Lounge!5e0!3m2!1sen!2sus!4v1766071035428!5m2!1sen!2sus",
+  name: "Firefly Lounge",
+  street: "1443 Fulton Ave",
+  city: "Sacramento",
+  stateCode: "CA",
+  zip: 95825,
+}
+
 
 export const HOURS = [
   {

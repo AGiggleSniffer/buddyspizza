@@ -10,8 +10,8 @@ async function Seed() {
   } else {
     const hours = config.HOURS.map((item) => ({
       day: item.day,
-      start: item.start,
-      end: item.end,
+      // start: item.start,
+      // end: item.end,
     }));
     await db.insert(schema.time).values(hours);
   }
@@ -38,11 +38,7 @@ async function Seed() {
   if (await queryData(schema.address)) {
     console.log("Data already exists in the database. Skipping seeding.");
   } else {
-    await db.insert(schema.address).values({
-      name: config.ADDRESS_NAME,
-      location: config.ADDRESS_NAME,
-      mapsrc: config.GOOGLE_MAPS_SRC,
-    });
+    await db.insert(schema.address).values(config.ADDRESS);
   }
 
   if (await queryData(schema.contact)) {

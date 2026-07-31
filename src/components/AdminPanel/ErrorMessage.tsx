@@ -1,6 +1,6 @@
 import { response } from "@/app/dashboard/actions";
 
-export default function ErrorMessage({ res }: { res: response | null}) {
+export default function ErrorMessage({ res }: { res: response | null }) {
   return (
     <>
       {res?.success == !true && (

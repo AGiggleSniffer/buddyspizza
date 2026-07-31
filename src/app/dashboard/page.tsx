@@ -11,7 +11,15 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { addMenuItem, removeMenuItem, updateAbout, updateAddress, updateContact, updateMenuItem, updateTime } from "./actions";
+import {
+  addMenuItem,
+  removeMenuItem,
+  updateAbout,
+  updateAddress,
+  updateContact,
+  updateMenuItem,
+  updateTime,
+} from "./actions";
 import AdminDashboardClient from "@/components/AdminPanel/AdminDashboardClient";
 
 export default async function AdminPage() {
