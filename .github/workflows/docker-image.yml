@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
-          dockerfile: Dockerfile.seed
+          file: Dockerfile.seed
           platforms: linux/amd64
           push: true
           tags: ${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }}-seed:latest
