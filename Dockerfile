@@ -2,7 +2,7 @@
 
 ARG NODE_VERSION=24.13.0-slim
 
-FROM node:${NODE_VERSION} AS dependencies
+FROM node:${NODE_VERSION} AS base
 
 # Install dependencies only when needed
 FROM base AS deps
