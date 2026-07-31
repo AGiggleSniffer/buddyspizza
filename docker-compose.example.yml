@@ -5,7 +5,7 @@ services:
     ports:
       - "4080:4080"
     restart: unless-stopped
-    enviroment:
+    environment:
       - DATABASE_URL=${DATABASE_URL}
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
       - BETTER_AUTH_URL=${BETTER_AUTH_URL}
