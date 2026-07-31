@@ -27,6 +27,7 @@ jobs:
         with:
           platforms: linux/amd64
           push: true
+          provenance: false
           tags: ${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest
 
       - name: Build and push seed image
@@ -36,4 +37,5 @@ jobs:
           file: Dockerfile.seed
           platforms: linux/amd64
           push: true
+          provenance: false
           tags: ${{ vars.DOCKER_USERNAME }}/${{ github.event.repository.name }}-seed:latest
