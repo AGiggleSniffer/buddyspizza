@@ -120,7 +120,7 @@ export default function SectionContact({
           </h2>
           <div className="space-y-6 py-4">
             <div className="flex gap-4">
-              <LuInstagram className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <LuInstagram className="text-primary mt-1 h-6 w-6 shrink-0" />
               <div>
                 <p className="mb-1">Instagram</p>
                 <p className="text-muted-foreground">@{instagram}</p>
@@ -128,7 +128,7 @@ export default function SectionContact({
             </div>
 
             <div className="flex gap-4">
-              <Mail className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <Mail className="text-primary mt-1 h-6 w-6 shrink-0" />
               <div>
                 <p className="mb-1">Email</p>
                 <p className="text-muted-foreground">{email}</p>
@@ -136,7 +136,7 @@ export default function SectionContact({
             </div>
 
             <div className="border-primary flex gap-4 border-b-2 border-dashed pb-4">
-              <Phone className="text-primary mt-1 h-6 w-6 flex-shrink-0" />
+              <Phone className="text-primary mt-1 h-6 w-6 shrink-0" />
               <div>
                 <p className="mb-1">{phone}</p>
               </div>
