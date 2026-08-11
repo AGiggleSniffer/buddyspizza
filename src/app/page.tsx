@@ -24,8 +24,8 @@ export default async function Home() {
     queries.getAddress(),
     queries.getTime(),
     queries.getMenu(),
-    queries.getPhoto("hero"),
-    queries.getPhoto("about"),
+    queries.getPhoto("hero") || "",
+    queries.getPhoto("about") || "",
   ]);
 
   const heroPhotoUrl = `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/${heroPhoto.key}`;
