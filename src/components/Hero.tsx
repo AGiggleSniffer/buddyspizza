@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 
+const FALLBACK = "/heropizza.jpg";
+
 export default function Hero({
   photo,
   className,
@@ -10,7 +12,8 @@ export default function Hero({
   photo: string;
   className?: string;
 }) {
-  const [imgsrc, setImgsrc] = useState(photo);
+  const [hasError, setHasError] = useState(false);
+  const displaySrc = hasError ? FALLBACK : photo;
 
   return (
     <section
@@ -22,14 +25,14 @@ export default function Hero({
     >
       <div className={`absolute min-h-screen min-w-screen`}>
         <Image
-          src={imgsrc}
+          src={displaySrc}
           sizes="100vw, 25vw"
           fill
           className="min-h-screen min-w-screen object-cover object-center"
           alt="hero"
           loading="eager"
           onError={() => {
-            setImgsrc("/heropizza.jpg");
+            setHasError(true);
           }}
         />
         <div className="absolute inset-0 bg-black/60 bg-linear-to-r from-black/75 via-black/45 to-black/10" />

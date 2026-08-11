@@ -34,14 +34,17 @@ export default function PhotoPanel({ description, initialPhotos }: Props) {
             type="file"
             className="cursor-pointer"
             onChange={(e) => setHeroPhoto(e.target.files?.[0] || null)}
-            // value={heroPhoto}
-            // onChange={(e) => setHeroPhoto(e.target.value)}
           />
 
           <div className="flex w-full items-center justify-center">
             <div className="flex h-[25vh] w-[25vw] items-center justify-center">
               <div className="scale-25 border-2">
                 <Hero
+                  key={
+                    heroPhoto
+                      ? URL.createObjectURL(heroPhoto)
+                      : initialPhotos.hero
+                  }
                   photo={
                     heroPhoto
                       ? URL.createObjectURL(heroPhoto)
@@ -84,6 +87,11 @@ export default function PhotoPanel({ description, initialPhotos }: Props) {
               <div className="scale-25">
                 <div className="h-screen w-screen border-2">
                   <SectionAbout
+                    key={
+                      aboutPhoto
+                        ? URL.createObjectURL(aboutPhoto)
+                        : initialPhotos.about
+                    }
                     photo={
                       aboutPhoto
                         ? URL.createObjectURL(aboutPhoto)

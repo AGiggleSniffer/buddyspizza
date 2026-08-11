@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { useState } from "react";
 
+const FALLBACK = "/pizzaoven.jpg";
+
 export default function SectionAbout({
   photo,
   description,
@@ -9,7 +11,8 @@ export default function SectionAbout({
   photo: string;
   description: string;
 }) {
-  const [imgsrc, setImgsrc] = useState(photo);
+  const [hasError, setHasError] = useState(false);
+  const displaySrc = hasError ? FALLBACK : photo;
 
   return (
     <section className="px-2 py-2 md:h-screen md:px-0" id="about">
@@ -25,13 +28,13 @@ export default function SectionAbout({
         <div className="relative row-start-1 h-full overflow-hidden md:col-span-7 md:row-span-2">
           <Image
             className="h-full w-full object-cover object-center"
-            src={imgsrc}
+            src={displaySrc}
             sizes="100vw, 25vw"
             alt="Pizza restaurant interior"
             fill
             loading="eager"
             onError={() => {
-              setImgsrc("/pizzaoven.jpg");
+              setHasError(true);
             }}
           />
         </div>
