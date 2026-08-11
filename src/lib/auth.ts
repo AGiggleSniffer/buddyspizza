@@ -1,11 +1,13 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/server/db";
-import { count } from "drizzle-orm";
 
-const alreadySeededAdmin = async () => {
-  const user = await db.query.user.findFirst();
-  return user ? true : false;
+let alreadySeededAdmin: boolean;
+
+try {
+  alreadySeededAdmin = (await db.query.user.findFirst()) ? true : false;
+} catch {
+  alreadySeededAdmin = false;
 }
 
 export const auth = betterAuth({
@@ -15,7 +17,7 @@ export const auth = betterAuth({
   plugins: [],
   emailAndPassword: {
     enabled: true,
-    disableSignUp: await alreadySeededAdmin(),
+    disableSignUp: alreadySeededAdmin,
   },
   trustedOrigins: ["http://localhost:3000", "https://staging.agiggletech.win"],
 });
