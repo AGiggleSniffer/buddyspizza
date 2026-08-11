@@ -14,13 +14,15 @@ const createAdminUser = async () => {
     return;
   }
 
-  await auth.api.signUpEmail({
-    body: {
-      email: process.env.ADMIN_EMAIL!,
-      password: process.env.ADMIN_PASSWORD!,
-      name: "Admin",
-    },
-  }).then(() => console.log("🌱 Admin seeded"));
+  await auth.api
+    .signUpEmail({
+      body: {
+        email: process.env.ADMIN_EMAIL!,
+        password: process.env.ADMIN_PASSWORD!,
+        name: "Admin",
+      },
+    })
+    .then(() => console.log("🌱 Admin seeded"));
 };
 
 export default createAdminUser;

@@ -22,6 +22,6 @@ export const auth = betterAuth({
           message: "Sign up is disabled.",
         });
       }
-    })
-  }
+    }),
+  },
 });

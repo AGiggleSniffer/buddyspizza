@@ -13,8 +13,11 @@ async function Seed() {
       // start: item.start,
       // end: item.end,
     }));
-    await db.insert(schema.time).values(hours).then(() => console.log());
-    console.log("🌱 Time seeded")
+    await db
+      .insert(schema.time)
+      .values(hours)
+      .then(() => console.log());
+    console.log("🌱 Time seeded");
   }
 
   if (await queryData(schema.menu)) {
@@ -26,7 +29,7 @@ async function Seed() {
       description: item.description,
     }));
     await db.insert(schema.menu).values(menuItems);
-    console.log("🌱 Menu seeded")
+    console.log("🌱 Menu seeded");
   }
 
   if (await queryData(schema.about)) {
@@ -35,32 +38,36 @@ async function Seed() {
     await db.insert(schema.about).values({
       description: config.ABOUT,
     });
-    console.log("🌱 About seeded")
+    console.log("🌱 About seeded");
   }
 
   if (await queryData(schema.address)) {
-    console.log("⚠️  Address already exists in the database. Skipping seeding.");
+    console.log(
+      "⚠️  Address already exists in the database. Skipping seeding.",
+    );
   } else {
     await db.insert(schema.address).values(config.ADDRESS);
-    console.log("🌱 Address seeded")
+    console.log("🌱 Address seeded");
   }
 
   if (await queryData(schema.contact)) {
-    console.log("⚠️  Contact already exists in the database. Skipping seeding.");
+    console.log(
+      "⚠️  Contact already exists in the database. Skipping seeding.",
+    );
   } else {
     await db.insert(schema.contact).values({
       email: config.EMAIL,
       phone: config.PHONE_NUMBER,
       insta: config.INSTAGRAM,
     });
-    console.log("🌱 Contact seeded")
+    console.log("🌱 Contact seeded");
   }
 
   if (await queryData(schema.photo)) {
     console.log("⚠️  Photo already exists in the database. Skipping seeding.");
   } else {
     await db.insert(schema.photo).values(config.PHOTOS);
-    console.log("🌱 Photo seeded")
+    console.log("🌱 Photo seeded");
   }
 }
 

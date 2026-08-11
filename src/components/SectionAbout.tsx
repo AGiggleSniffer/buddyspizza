@@ -31,7 +31,7 @@ export default function SectionAbout({
             fill
             loading="eager"
             onError={() => {
-              setImgsrc("/heropizza.jpg");
+              setImgsrc("/pizzaoven.jpg");
             }}
           />
         </div>
