@@ -10,7 +10,7 @@ const createAdminUser = async () => {
   });
 
   if (admin) {
-    console.log("Admin already exists in the database. Skipping seeding.");
+    console.log("⚠️  Admin already exists in the database. Skipping seeding.");
     return;
   }
 
@@ -20,7 +20,7 @@ const createAdminUser = async () => {
       password: process.env.ADMIN_PASSWORD!,
       name: "Admin",
     },
-  });
+  }).then(() => console.log("🌱 Admin seeded"));
 };
 
 export default createAdminUser;

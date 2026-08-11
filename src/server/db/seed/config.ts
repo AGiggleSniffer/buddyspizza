@@ -90,6 +90,6 @@ export const MENU_ITEMS = [
 ];
 
 export const PHOTOS = [
-  { name: "hero", key: "" },
-  { name: "about", key: "" },
+  { name: "hero", key: "1" },
+  { name: "about", key: "2" },
 ];
