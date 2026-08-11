@@ -50,6 +50,12 @@ async function Seed() {
       insta: config.INSTAGRAM,
     });
   }
+
+  // if (await queryData(schema.photo)) {
+  //   console.log("Data already exists in the database. Skipping seeding.");
+  // } else {
+  //   await db.insert(schema.photo).values(config.PHOTOS);
+  // }
 }
 
 const queryData = async (table: PgTable) => {

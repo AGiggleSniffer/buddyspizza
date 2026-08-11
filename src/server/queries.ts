@@ -152,3 +152,37 @@ export const patchMenu = async (
 export const deleteMenu = async (item: string): Promise<void> => {
   await db.delete(schema.menu).where(eq(schema.menu.item, item));
 };
+
+//////////////////////////////////////
+//          ABOUT QUERIES           //
+//////////////////////////////////////
+
+export const getPhoto = async (name: string): Promise<schema.photo> => {
+  const photo = await db.query.photo.findFirst({
+    where: eq(schema.photo.name, name),
+  });
+
+  if (!photo) {
+    throw new Error("Photo not found");
+  }
+
+  return photo;
+};
+
+export const patchPhoto = async ({
+  name,
+  key,
+}: Omit<schema.photo, "id" | "createdAt" | "updatedAt">): Promise<void> => {
+  const photo = await db.query.photo.findFirst({
+    where: eq(schema.photo.name, name),
+  });
+
+  if (photo) {
+    await db
+      .update(schema.photo)
+      .set({ key })
+      .where(eq(schema.photo.name, photo.name));
+  } else {
+    throw new Error("Photo not found");
+  }
+};

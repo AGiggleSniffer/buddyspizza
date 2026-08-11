@@ -88,3 +88,8 @@ export const MENU_ITEMS = [
       "A savory, herb-infused blend of vine-ripened tomatoes and garlic.",
   },
 ];
+
+export const PHOTOS = [
+  { name: "hero", key: "CBtpuqldpztnwXThABpR61lB9u8HNIOPks0cpGoyFgU4fQ7M" },
+  { name: "about", key: "CBtpuqldpztnhPm1eGfBnUd2kOtPAjJIN4f7ucRY9bTEz3KC" },
+];

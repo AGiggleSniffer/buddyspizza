@@ -3,6 +3,7 @@ import {
   getAddress,
   getContact,
   getMenu,
+  getPhoto,
   getTime,
 } from "@/server/queries";
 import { getQueryClient } from "@/lib/query-client";
@@ -22,6 +23,11 @@ import {
 } from "./actions";
 import AdminDashboardClient from "@/components/AdminPanel/AdminDashboardClient";
 
+export const PHOTO_URLS = {
+  hero: `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/hero`,
+  about: `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/about`,
+} as const;
+
 export default async function AdminPage() {
   const queryClient = getQueryClient();
   const session = await ensureSession(queryClient, auth, {
@@ -32,13 +38,19 @@ export default async function AdminPage() {
     redirect("/auth/sign-in?redirectTo=/dashboard");
   }
 
-  const [about, contact, address, time, menu] = await Promise.all([
-    getAbout(),
-    getContact(),
-    getAddress(),
-    getTime(),
-    getMenu(),
-  ]);
+  const [about, contact, address, time, menu, heroPhoto, aboutPhoto] =
+    await Promise.all([
+      getAbout(),
+      getContact(),
+      getAddress(),
+      getTime(),
+      getMenu(),
+      getPhoto("hero"),
+      getPhoto("about"),
+    ]);
+
+  const heroPhotoUrl = `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/${heroPhoto.key}`;
+  const aboutPhotoUrl = `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/${aboutPhoto.key}`;
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
@@ -48,6 +60,7 @@ export default async function AdminPage() {
         initialAddress={address}
         initialTime={time}
         initialMenu={menu}
+        initialPhotos={{ hero: heroPhotoUrl, about: aboutPhotoUrl }}
         actions={{
           updateAbout,
           updateContact,

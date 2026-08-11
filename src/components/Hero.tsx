@@ -1,12 +1,37 @@
+"use client";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { useState } from "react";
 
-export default function Hero() {
+export default function Hero({
+  photo,
+  className,
+}: {
+  photo: string;
+  className?: string;
+}) {
+  const [imgsrc, setImgsrc] = useState(photo);
+
   return (
     <section
-      className="mx-auto flex min-h-screen min-w-screen justify-center tracking-wide md:grid md:grid-cols-10"
+      className={
+        "mx-auto flex min-h-screen min-w-screen justify-center tracking-wide md:grid md:grid-cols-10" +
+        (className ? ` ${className}` : "")
+      }
       id="home"
     >
-      <div className="absolute min-h-screen min-w-screen bg-[url(/heropizza.jpg)] bg-cover bg-center">
+      <div className={`absolute min-h-screen min-w-screen`}>
+        <Image
+          src={imgsrc}
+          sizes="100vw, 25vw"
+          fill
+          className="min-h-screen min-w-screen object-cover object-center"
+          alt="hero"
+          loading="eager"
+          onError={() => {
+            setImgsrc("./heropizza.jpg");
+          }}
+        />
         <div className="absolute inset-0 bg-black/60 bg-linear-to-r from-black/75 via-black/45 to-black/10" />
       </div>
       <div className="z-10 col-span-7 col-start-2 flex flex-col items-center justify-center text-shadow-2xs md:items-baseline">

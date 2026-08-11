@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
   },
   output: "standalone",
   allowedDevOrigins: ["staging.agiggletech.win"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: `**.ufs.sh`,
+        pathname: "/f/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

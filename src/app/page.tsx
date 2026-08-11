@@ -7,17 +7,29 @@ import SectionContact from "@/components/SectionContact";
 import Footer from "@/components/Footer";
 import * as queries from "@/server/queries";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [desc, { email, insta, phone }, address, time, menuItems] =
-    await Promise.all([
-      queries.getAbout(),
-      queries.getContact(),
-      queries.getAddress(),
-      queries.getTime(),
-      queries.getMenu(),
-    ]);
+  const [
+    desc,
+    { email, insta, phone },
+    address,
+    time,
+    menuItems,
+    heroPhoto,
+    aboutPhoto,
+  ] = await Promise.all([
+    queries.getAbout(),
+    queries.getContact(),
+    queries.getAddress(),
+    queries.getTime(),
+    queries.getMenu(),
+    queries.getPhoto("hero"),
+    queries.getPhoto("about"),
+  ]);
+
+  const heroPhotoUrl = `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/${heroPhoto.key}`;
+  const aboutPhotoUrl = `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/${aboutPhoto.key}`;
 
   const timeInfo = time.sort(
     (a: { id: number }, b: { id: number }) => a.id - b.id,
@@ -29,10 +41,10 @@ export default async function Home() {
         <Navbar />
       </header>
       <main className="mx-auto w-full">
-        <Hero />
+        <Hero photo={heroPhotoUrl} />
         <SectionMenu instagram={insta} items={menuItems} />
         <SectionMap address={address} hours={timeInfo} phone={phone} />
-        <SectionAbout description={desc} />
+        <SectionAbout photo={aboutPhotoUrl} description={desc} />
         <SectionContact email={email} instagram={insta} phone={phone} />
       </main>
       <Footer />

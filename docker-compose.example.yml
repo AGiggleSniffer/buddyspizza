@@ -9,6 +9,8 @@ services:
       - DATABASE_URL=${DATABASE_URL}
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
       - BETTER_AUTH_URL=${BETTER_AUTH_URL}
+      - UPLOADTHING_TOKEN=${UPLOADTHING_TOKEN}
+      - UPLOADTHING_APP_ID=${UPLOADTHING_APP_ID}
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     depends_on:

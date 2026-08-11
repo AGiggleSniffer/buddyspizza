@@ -1,7 +1,14 @@
 "use client";
 import { useState } from "react";
 import type { menu, contact, address, time } from "@/server/db/schema/schema";
-import { Info, Phone, Clock, MapPin, UtensilsCrossed } from "lucide-react";
+import {
+  Info,
+  Phone,
+  Clock,
+  MapPin,
+  UtensilsCrossed,
+  Image,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { response } from "@/app/dashboard/actions";
 import Logo from "../Logo";
@@ -10,6 +17,7 @@ import HoursPanel from "./HoursPanel/HoursPanel";
 import AboutPanel from "./AboutPanel";
 import AddressPanel from "./AddressPanel";
 import MenuPanel from "./MenuPanel";
+import PhotoPanel from "./PhotoPanel/PhotoPanel";
 
 const NAV = [
   { key: "about", label: "About", icon: Info },
@@ -17,6 +25,7 @@ const NAV = [
   { key: "hours", label: "Hours", icon: Clock },
   { key: "address", label: "Address", icon: MapPin },
   { key: "menu", label: "Menu", icon: UtensilsCrossed },
+  { key: "photos", label: "Photos", icon: Image },
 ] as const;
 
 export default function AdminDashboardClient({
@@ -25,6 +34,7 @@ export default function AdminDashboardClient({
   initialAddress,
   initialTime,
   initialMenu,
+  initialPhotos,
   actions,
 }: {
   initialAbout: string;
@@ -32,6 +42,7 @@ export default function AdminDashboardClient({
   initialAddress: address;
   initialTime: time[];
   initialMenu: menu[];
+  initialPhotos: { hero: string; about: string };
   actions: {
     updateAbout: (description: string) => Promise<response>;
     updateContact: (contact: contact) => Promise<response>;
@@ -50,7 +61,7 @@ export default function AdminDashboardClient({
   };
 }) {
   const [active, setActive] = useState<
-    "about" | "contact" | "hours" | "address" | "menu"
+    "about" | "contact" | "hours" | "address" | "menu" | "photos"
   >("about");
 
   const panels = {
@@ -82,6 +93,9 @@ export default function AdminDashboardClient({
         updateMenuItem={actions.updateMenuItem}
         removeMenuItem={actions.removeMenuItem}
       />
+    ),
+    photos: (
+      <PhotoPanel description={initialAbout} initialPhotos={initialPhotos} />
     ),
   };
 

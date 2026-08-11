@@ -70,8 +70,20 @@ export const menu = pgTable("menu", {
     .notNull(),
 });
 
+export const photo = pgTable("photo", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  name: text("name").notNull().unique(),
+  key: text("key").notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
+
 export type about = InferSelectModel<typeof about>;
 export type time = InferSelectModel<typeof time>;
 export type contact = InferSelectModel<typeof contact>;
 export type address = InferSelectModel<typeof address>;
 export type menu = InferSelectModel<typeof menu>;
+export type photo = InferSelectModel<typeof photo>;

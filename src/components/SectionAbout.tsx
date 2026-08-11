@@ -1,10 +1,16 @@
+"use client";
 import Image from "next/image";
+import { useState } from "react";
 
-export default async function SectionAbout({
+export default function SectionAbout({
+  photo,
   description,
 }: {
+  photo: string;
   description: string;
 }) {
+  const [imgsrc, setImgsrc] = useState(photo);
+
   return (
     <section className="px-2 py-2 md:h-screen md:px-0" id="about">
       <div className="font-playfair items-centergrid grid h-full grid-rows-2 items-center md:grid-cols-10">
@@ -16,13 +22,17 @@ export default async function SectionAbout({
             {description}
           </p>
         </div>
-        <div className="row-start-1 h-full overflow-hidden md:col-span-7 md:row-span-2">
+        <div className="relative row-start-1 h-full overflow-hidden md:col-span-7 md:row-span-2">
           <Image
             className="h-full w-full object-cover object-center"
-            src="/pizzaoven.jpg"
+            src={imgsrc}
+            sizes="100vw, 25vw"
             alt="Pizza restaurant interior"
-            height={1000}
-            width={1000}
+            fill
+            loading="eager"
+            onError={() => {
+              setImgsrc("./heropizza.jpg");
+            }}
           />
         </div>
       </div>
