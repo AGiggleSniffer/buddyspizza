@@ -23,11 +23,6 @@ import {
 } from "./actions";
 import AdminDashboardClient from "@/components/AdminPanel/AdminDashboardClient";
 
-export const PHOTO_URLS = {
-  hero: `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/hero`,
-  about: `https://${process.env.UPLOADTHING_APP_ID}.ufs.sh/f/about`,
-} as const;
-
 export default async function AdminPage() {
   const queryClient = getQueryClient();
   const session = await ensureSession(queryClient, auth, {
