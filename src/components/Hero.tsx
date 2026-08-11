@@ -29,7 +29,7 @@ export default function Hero({
           alt="hero"
           loading="eager"
           onError={() => {
-            setImgsrc("./heropizza.jpg");
+            setImgsrc("/heropizza.jpg");
           }}
         />
         <div className="absolute inset-0 bg-black/60 bg-linear-to-r from-black/75 via-black/45 to-black/10" />
