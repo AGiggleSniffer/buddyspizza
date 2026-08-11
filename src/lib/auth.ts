@@ -8,8 +8,7 @@ const alreadySeededAdmin = async () => {
   } catch {
     return false;
   }
-}
-
+};
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -18,7 +17,7 @@ export const auth = betterAuth({
   plugins: [],
   emailAndPassword: {
     enabled: true,
-    disableSignUp: alreadySeededAdmin,
+    disableSignUp: await alreadySeededAdmin(),
   },
   trustedOrigins: ["http://localhost:3000", "https://staging.agiggletech.win"],
 });
