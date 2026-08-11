@@ -14,6 +14,7 @@ const createAdminUser = async () => {
     return;
   }
 
+  process.env.ALLOW_SIGNUPS = "true";
   await auth.api.signUpEmail({
     body: {
       email: process.env.ADMIN_EMAIL!,

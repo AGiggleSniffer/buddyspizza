@@ -9,7 +9,7 @@ export const auth = betterAuth({
   plugins: [],
   emailAndPassword: {
     enabled: true,
-    disableSignUp: true,
+    disableSignUp: process.env.ALLOW_SIGNUPS !== "true",
   },
   trustedOrigins: ["http://localhost:3000", "https://staging.agiggletech.win"],
 });
